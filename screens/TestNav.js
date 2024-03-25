@@ -1,14 +1,17 @@
 import React from 'react';
 import {StyleSheet, ScrollView, TouchableOpacity, Text} from 'react-native';
+import {useAuth} from "../providers/Auth";
 const TestNav = ({ navigation }) => {
+    const { logout } = useAuth();
+
     return (
         <ScrollView style={styles.container}>
             <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Dashboard')}>
                 <Text>Dashboard</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Login')}>
-                <Text>Login</Text>
+            <TouchableOpacity style={styles.item} onPress={() => logout()}>
+                <Text>Logout</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('ResetPassword')}>

@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
 const clientsData = [
-    { id: '1', name: 'Клиент 1', begeleiders: ['Бегелейдер 1', 'Бегелейдер 2'], status: 'active' },
-    { id: '2', name: 'Клиент 2', begeleiders: ['Бегелейдер 2'], status: 'inactive' },
+    { id: '1', name: 'Client 1', begeleiders: ['Begeleider 1', 'Begeleider 2'], status: 'active' },
+    { id: '2', name: 'Client 2', begeleiders: ['Begeleider 2'], status: 'inactive' },
 ];
 
 const ClientsScreen = ({ navigation }) => {

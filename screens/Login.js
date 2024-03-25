@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import {useAuth} from "../providers/Auth";
 
 const LoginScreen = ({ navigation }) => {
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
         console.log('Login with:', email, password);
+        login();
     };
 
     const navigateToResetPassword = () => {
