@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Switch, Button, StyleSheet } from 'react-native';
+import {View, Text, TextInput, Switch, Button, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import {useMutation} from "react-query";
+import {createTask} from "../services/Task";
 
 const TaskBuilderScreen = () => {
     const [taskName, setTaskName] = useState('');
     const [isRecurring, setIsRecurring] = useState(false);
 
-    const saveTask = () => {
-        console.log('Task saved:', { taskName, isRecurring });
+    const { mutate, isLoading, isError, error } = useMutation(createTask, {
+        onSuccess: () => {
+           Alert.alert('Success', 'Task created successfully!');
+            setTaskName('');
+        },
+        onError: (error) => {
+            console.error('Error resetting password:', error);
+        },
+    });
+
+    const handleSubmit = () => {
+        if (!taskName.trim()) {
+            Alert.alert('Validation', 'Title is required!');
+        } else {
+            mutate({ taskName, isRecurring });
+        }
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>Taken ontwerper</Text>
-            
+
             <TextInput
                 style={styles.input}
                 onChangeText={setTaskName}
@@ -29,7 +45,11 @@ const TaskBuilderScreen = () => {
                 <Text>{isRecurring ? 'Yes' : 'No'}</Text>
             </View>
 
-            <Button title="Save" onPress={saveTask} />
+            {isError && <Text style={styles.error}>{`Error: ${error}`}</Text>}
+            <Button title="Save" onPress={handleSubmit} disabled={isLoading} />
+            {isLoading && (
+                <ActivityIndicator size="large" color="#0000ff" />
+            )}
         </View>
     );
 };

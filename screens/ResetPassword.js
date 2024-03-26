@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import { useMutation } from 'react-query';
+import {resetPassword} from "../services/Auth";
 
 const ResetPasswordScreen = () => {
     const [email, setEmail] = useState('');
 
+    const { mutate, isLoading, isError, error, isSuccess } = useMutation(resetPassword, {
+        onSuccess: () => {
+            console.log('Password reset successfully');
+        },
+        onError: (error) => {
+            console.error('Error resetting password:', error);
+        },
+    });
+
     const handleResetPassword = () => {
-        console.log('Reset password for:', email);
+        mutate(email);
+    };
+
+    const handleSubmit = () => {
+        if (!email.trim()) {
+            Alert.alert('Validation', 'Email is required!');
+        } else {
+            handleResetPassword();
+        }
     };
 
     return (
@@ -18,7 +37,12 @@ const ResetPasswordScreen = () => {
                 placeholder="E-mailadres"
                 keyboardType="email-address"
             />
-            <Button title="Reset wachtwoord" onPress={handleResetPassword} />
+            {isError && <Text style={styles.error}>Er is een fout opgetreden</Text>}
+            {isSuccess && <Text style={styles.success}>Wachtwoord is succesvol gereset. Please, check your email</Text>}
+            <Button title="Reset wachtwoord" onPress={handleSubmit} disabled={isLoading} />
+            {isLoading && (
+                <ActivityIndicator size="large" color="#0000ff" />
+            )}
         </View>
     );
 };
@@ -41,6 +65,14 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
         borderRadius: 5,
         padding: 10,
+    },
+    error: {
+        color: 'red',
+        marginBottom: 10
+    },
+    success: {
+        color: 'green',
+        marginBottom: 10
     },
 });
 

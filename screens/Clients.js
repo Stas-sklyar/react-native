@@ -1,23 +1,44 @@
-import React from 'react';
-import { View, Text, Button, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useCallback} from 'react';
+import {Text, Button, FlatList, TouchableOpacity, StyleSheet, RefreshControl, ScrollView} from 'react-native';
+import {useQuery} from "react-query";
+import {fetchClients} from "../services/Client";
 
-const clientsData = [
-    { id: '1', name: 'Client 1', begeleiders: ['Begeleider 1', 'Begeleider 2'], status: 'active' },
-    { id: '2', name: 'Client 2', begeleiders: ['Begeleider 2'], status: 'inactive' },
-];
-
-const ClientsScreen = ({ navigation }) => {
+const ClientsScreen = ({navigation}) => {
+    const {
+        data: clients,
+        error,
+        isLoading,
+        refetch
+    } = useQuery('fetchClients', fetchClients);
     const handleClientPress = (clientId) => {
-        navigation.navigate('ConsultModeScreen', { clientId: clientId });
+        navigation.navigate('ConsultModeScreen', {clientId});
     };
 
+    const onRefresh = useCallback(async () => {
+        await refetch()
+    }, []);
+
     return (
-        <View style={styles.container}>
-            <Button title="Onboard client" onPress={() => console.log('Onboard client')} />
+        <ScrollView
+            style={styles.container}
+            refreshControl={
+                <RefreshControl refreshing={isLoading} onRefresh={onRefresh}/>
+            }
+        >
+            <Button title="Onboard client" onPress={() => navigation.navigate('OnboardClient')}/>
+
+            {
+                isLoading ? <Text>Loading clients...</Text> : null
+            }
+
+            {
+                error ? <Text>Error loading clients: {error.message}</Text> : null
+            }
+
             <FlatList
-                data={clientsData}
+                data={clients}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                     <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item.id)}>
                         <Text style={styles.name}>{item.name}</Text>
                         <Text style={styles.details}>Begeleiders: {item.begeleiders.join(', ')}</Text>
@@ -25,7 +46,7 @@ const ClientsScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 )}
             />
-        </View>
+        </ScrollView>
     );
 };
 

@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import {useMutation} from "react-query";
+import {createClient} from "../services/Client";
 
 const OnboardClientScreen = () => {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
+    const { mutate, isLoading, isError, error } = useMutation(createClient, {
+        onSuccess: () => {
+            Alert.alert('Client successfully created');
+            clearForm();
+        },
+        onError: (error) => {
+            console.error('Error creating client:', error);
+        },
+    });
+
+    const clearForm = () => {
+        setEmail('')
+        setFirstName('')
+        setLastName('')
+    }
+
+    const handleResetPassword = () => {
+        mutate({ email, firstName, lastName })
+    };
+
     const handleSubmit = () => {
-        console.log('Onboarding client with:', email, firstName, lastName);
+        handleResetPassword();
     };
 
     return (
@@ -32,7 +54,12 @@ const OnboardClientScreen = () => {
                 value={lastName}
                 placeholder="Achternaam"
             />
-            <Button title="Register Client" onPress={handleSubmit} />
+
+            {isError && <Text style={styles.error}>{`Error: ${error}`}</Text>}
+            <Button title="Register Client" onPress={handleSubmit} disabled={isLoading} />
+            {isLoading && (
+                <ActivityIndicator size="large" color="#0000ff" />
+            )}
         </View>
     );
 };

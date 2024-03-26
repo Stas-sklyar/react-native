@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, FlatList } from 'react-native';
+import React, {useCallback} from 'react';
+import {View, Text, TextInput, Button, StyleSheet, ScrollView, FlatList, RefreshControl} from 'react-native';
+import {useQuery} from "react-query";
+import {fetchQuotes} from "../services/Quote";
 
 const QuotesPlannerScreen = () => {
-    const initialQuotes = Array.from({ length: 53 }, (_, index) => ({
-        week: index + 1,
-        quote: `Quote N ${index + 1}`,
-    }));
-    const [quotes, setQuotes] = useState(initialQuotes);
+    const { data: quotes, error, isLoading, refetch } = useQuery('fetchQuotes', fetchQuotes);
 
     const updateQuote = (text, index) => {
-        const updatedQuotes = [...quotes];
-        updatedQuotes[index].quote = text;
-        setQuotes(updatedQuotes);
+
     };
 
     const saveQuotes = () => {
         console.log('Quotes saved:', quotes);
     };
+
+    const onRefresh = useCallback(async () => {
+        await refetch()
+    }, []);
 
     const renderQuoteItem = ({ item, index }) => (
         <View style={styles.row}>
@@ -31,8 +31,20 @@ const QuotesPlannerScreen = () => {
     );
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            refreshControl={
+                <RefreshControl refreshing={isLoading} onRefresh={onRefresh}/>
+            }
+        >
             <Text style={styles.heading}>Quotes planner</Text>
+
+            {
+                isLoading ? <Text>Loading...</Text> : null
+            }
+            {
+                error ? <Text>Error: {error.message}</Text> : null
+            }
             <FlatList
                 data={quotes}
                 renderItem={renderQuoteItem}
