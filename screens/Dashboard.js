@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {Text, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import {useQuery} from "react-query";
 import {fetchTakenTasks, fetchTasks} from "../services/Task";
@@ -7,23 +7,56 @@ import {fetchExercises} from "../services/Exercise";
 import Exercises from "../UI/Dashboard/Exercises";
 
 const DashboardScreen = () => {
-    const [updateDataToggle, setUpdateDataToggle] = useState(false);
+    const {
+        data: tasks,
+        error: errorDuringLoadingTasks,
+        isLoading: tasksIsLoading,
+        refetch: reFetchTasks,
+    } = useQuery('fetchTasks', fetchTasks);
+
+    const {
+        data: takenTasks,
+        error: errorDuringLoadingTakenTasks,
+        isLoading: takenTasksIsLoading,
+        refetch: reFetchTakenTasks,
+    } = useQuery('fetchTakenTasks', fetchTakenTasks);
+
+    const {
+        data: exercises,
+        error: errorDuringLoadingExercises,
+        isLoading: exercisesIsLoading,
+        refetch: reFetchExercises,
+    } = useQuery('fetchExercises', fetchExercises);
+
     const onRefresh = useCallback(async () => {
-        setUpdateDataToggle(prevState => !prevState);
+        await Promise.all([reFetchTasks(), reFetchTakenTasks(), reFetchExercises()]);
     }, []);
 
     return (
         <ScrollView
             style={styles.container}
+            refreshControl={
+                <RefreshControl refreshing={false} onRefresh={onRefresh}/>
+            }
         >
-            {/* TODO: LOADER */}
             <Text style={styles.heading}>Dashboard</Text>
             <Text style={styles.paragraph}>Dit is jouw dashboard.</Text>
 
-            <Tasks updateDataToggle={updateDataToggle} />
+            <Tasks
+                tasks={tasks}
+                errorDuringLoadingTasks={errorDuringLoadingTasks}
+                tasksIsLoading={tasksIsLoading}
+                takenTasks={takenTasks}
+                errorDuringLoadingTakenTasks={errorDuringLoadingTakenTasks}
+                takenTasksIsLoading={takenTasksIsLoading}
+            />
 
             <Text style={styles.subHeading}>Opdrachten</Text>
-            <Exercises updateDataToggle={updateDataToggle} />
+            <Exercises
+                exercises={exercises}
+                errorDuringLoadingExercises={errorDuringLoadingExercises}
+                exercisesIsLoading={exercisesIsLoading}
+            />
         </ScrollView>
     );
 };
@@ -36,6 +69,12 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 24,
         fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    subHeading: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 20,
         marginBottom: 10,
     },
     paragraph: {

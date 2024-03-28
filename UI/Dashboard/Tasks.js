@@ -1,57 +1,46 @@
-import {StyleSheet, Text, View} from "react-native";
-import React, {useEffect} from "react";
-import {useQuery} from "react-query";
-import {fetchTakenTasks, fetchTasks} from "../../services/Task";
+import {FlatList, StyleSheet, Text, View} from "react-native";
+import React from "react";
 
-function Tasks({ updateDataToggle }) {
-    const {
-        data: tasks,
-        error: errorDuringLoadingTasks,
-        isLoading: tasksIsLoading,
-        refetch: reFetchTasks,
-        isSuccess: tasksReceivedSuccessfully
-    } = useQuery('fetchTasks', fetchTasks);
-
-    const {
-        data: takenTasks,
-        error: errorDuringLoadingTakenTasks,
-        isLoading: takenTasksIsLoading,
-        refetch: reFetchTakenTasks,
-        isSuccess: takenTasksReceivedSuccessfully
-    } = useQuery('fetchTakenTasks', fetchTakenTasks);
-
-    useEffect(async () => {
-        await Promise.all(
-            [reFetchTasks(), reFetchTakenTasks()]
-        )
-    }, [updateDataToggle]);
+function Tasks({tasks, errorDuringLoadingTasks, tasksIsLoading, takenTasks, errorDuringLoadingTakenTasks, takenTasksIsLoading}) {
 
     return (
         <View>
             {
-                tasksIsLoading ? <Text>Loading tasks...</Text> : null
+                tasksIsLoading && <Text>Loading tasks...</Text>
             }
             {
-                errorDuringLoadingTasks ? <Text>Error loading tasks: {errorDuringLoadingTasks.message}</Text> : null
+                errorDuringLoadingTasks && <Text>Error loading tasks: {errorDuringLoadingTasks.message}</Text>
             }
             {
-                (tasksReceivedSuccessfully && tasks.length > 0) ? (
-                    tasks.map(task => <Text key={task.id} style={styles.item}>{task.title}</Text>)
-                ) : <Text style={styles.item}>Geen taken toegewezen</Text>
+                !tasksIsLoading &&
+                <FlatList
+                    data={tasks}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => (
+                        <Text key={item.id} style={styles.item}>{item.title}</Text>
+                    )}
+                    ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
+                />
             }
+
 
             <Text style={styles.subHeading}>Taken</Text>
             {
-                takenTasksIsLoading ? <Text>Loading tasks...</Text> : null
+                takenTasksIsLoading && <Text>Loading tasks...</Text>
             }
             {
-                errorDuringLoadingTakenTasks ? <Text>Error loading tasks: {errorDuringLoadingTakenTasks.message}</Text> : null
+                errorDuringLoadingTakenTasks && <Text>Error loading tasks: {errorDuringLoadingTakenTasks.message}</Text>
             }
-
             {
-                (takenTasksReceivedSuccessfully && tasks.length > 0) ? (
-                    takenTasks.map(task => <Text key={task.id} style={styles.item}>{task.title}</Text>)
-                ) : <Text style={styles.item}>Geen taken toegewezen</Text>
+                !takenTasksIsLoading &&
+                <FlatList
+                    data={takenTasks}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => (
+                        <Text key={item.id} style={styles.item}>{item.title}</Text>
+                    )}
+                    ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
+                />
             }
         </View>
     );

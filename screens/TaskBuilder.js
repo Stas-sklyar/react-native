@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, Switch, Button, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import {View, Text, TextInput, Switch, Button, Alert, ActivityIndicator} from 'react-native';
 import {useMutation} from "react-query";
 import {createTask} from "../services/Task";
 import g from "../assets/styles/global";
@@ -46,7 +46,7 @@ const TaskBuilderScreen = () => {
                 <Text>{isRecurring ? 'Yes' : 'No'}</Text>
             </View>
 
-            {error ? <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text> : null}
+            {error && <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text>}
             <Button title="Save" onPress={handleSubmit} disabled={isLoading} />
             {isLoading && (
                 <ActivityIndicator size="large" color="#0000ff" />

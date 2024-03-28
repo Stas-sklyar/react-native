@@ -20,27 +20,31 @@ function ColleaguesList({colleagues, errorFetchingColleagues, colleaguesIsLoadin
     return (
         <View>
             {
-                colleaguesIsLoading ? <Text>Loading colleagues...</Text> : null
+                colleaguesIsLoading && <Text>Loading colleagues...</Text>
             }
             {
-                errorFetchingColleagues ? <Text>Error: {errorFetchingColleagues.message}</Text> : null
+                errorFetchingColleagues && <Text>Error: {errorFetchingColleagues.message}</Text>
             }
-            <FlatList
-                style={styles.colleagueList}
-                data={colleagues}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => (
-                    <View style={styles.colleagueItem}>
-                        <Text style={styles.colleagueText}>{item.firstName} {item.lastName} - {item.status}</Text>
-                        <View style={styles.buttonsContainer}>
-                            <Button title="View" onPress={() => handleView(item.id)}/>
-                            <Button title="Edit" onPress={() => handleEdit(item.id)}/>
-                            <Button title="Delete" onPress={() => handleDelete(item.id)}/>
-                            <Button title="Block" onPress={() => handleBlock(item.id)} color="red"/>
+            {
+                !colleaguesIsLoading &&
+                <FlatList
+                    style={styles.colleagueList}
+                    data={colleagues}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => (
+                        <View style={styles.colleagueItem}>
+                            <Text style={styles.colleagueText}>{item.firstName} {item.lastName} - {item.status}</Text>
+                            <View style={styles.buttonsContainer}>
+                                <Button title="View" onPress={() => handleView(item.id)}/>
+                                <Button title="Edit" onPress={() => handleEdit(item.id)}/>
+                                <Button title="Delete" onPress={() => handleDelete(item.id)}/>
+                                <Button title="Block" onPress={() => handleBlock(item.id)} color="red"/>
+                            </View>
                         </View>
-                    </View>
-                )}
-            />
+                    )}
+                    ListEmptyComponent={<Text>Empty list</Text>}
+                />
+            }
         </View>
     );
 }

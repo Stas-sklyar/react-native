@@ -28,24 +28,28 @@ const ClientsScreen = ({navigation}) => {
             <Button title="Onboard client" onPress={() => navigation.navigate('OnboardClient')}/>
 
             {
-                isLoading ? <Text>Loading clients...</Text> : null
+                isLoading && <Text>Loading clients...</Text>
             }
 
             {
-                error ? <Text>Error loading clients: {error.message}</Text> : null
+                error && <Text>Error loading clients: {error.message}</Text>
             }
 
-            <FlatList
-                data={clients}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => (
-                    <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item.id)}>
-                        <Text style={styles.name}>{item.name}</Text>
-                        <Text style={styles.details}>Begeleiders: {item.begeleiders.join(', ')}</Text>
-                        <Text style={styles.details}>Status: {item.status}</Text>
-                    </TouchableOpacity>
-                )}
-            />
+            {
+                !isLoading &&
+                <FlatList
+                    data={clients}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => (
+                        <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item.id)}>
+                            <Text style={styles.name}>{item.name}</Text>
+                            <Text style={styles.details}>Begeleiders: {item.begeleiders.join(', ')}</Text>
+                            <Text style={styles.details}>Status: {item.status}</Text>
+                        </TouchableOpacity>
+                    )}
+                    ListEmptyComponent={<Text style={styles.item}>Empty list</Text>}
+                />
+            }
         </ScrollView>
     );
 };

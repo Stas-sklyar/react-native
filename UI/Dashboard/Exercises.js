@@ -1,33 +1,24 @@
-import {StyleSheet, Text, View} from "react-native";
-import React, {useEffect} from "react";
-import {useQuery} from "react-query";
-import {fetchExercises} from "../../services/Exercise";
+import {FlatList, StyleSheet, Text, View} from "react-native";
 
-function Exercises({ updateDataToggle }) {
-    const {
-        data: exercises,
-        error: errorDuringLoadingExercises,
-        isLoading: exercisesIsLoading,
-        refetch: reFetchExercises,
-        isSuccess: exercisesReceivedSuccessfully
-    } = useQuery('fetchExercises', fetchExercises);
-
-    useEffect(async () => {
-        await reFetchExercises();
-    }, [updateDataToggle]);
-
+function Exercises({ exercises, errorDuringLoadingExercises, exercisesIsLoading}) {
     return (
         <View>
             {
-                exercisesIsLoading ? <Text>Loading exercises...</Text> : <Exercises exercises={exercises} />
+                exercisesIsLoading && <Text>Loading exercises...</Text>
             }
             {
-                errorDuringLoadingExercises ? <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text> : null
+                errorDuringLoadingExercises && <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
             }
             {
-                (exercisesReceivedSuccessfully && exercises.length > 0) ? (
-                    exercises.map(exercise => <Text key={exercise.id} style={styles.item}>{exercise.title}</Text>)
-                ) : <Text style={styles.item}>Geen taken toegewezen</Text>
+                !exercisesIsLoading &&
+                <FlatList
+                    data={exercises}
+                    keyExtractor={item => item.id}
+                    renderItem={({item}) => (
+                        <Text key={item.id} style={styles.item}>{item.title}</Text>
+                    )}
+                    ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
+                />
             }
         </View>
     );
