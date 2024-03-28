@@ -1,8 +1,6 @@
 import React from "react";
 import {useAuth} from "../providers/Auth";
-import {createNativeStackNavigator} from "react-native-screens/native-stack";
 import LoginScreen from "../screens/Login";
-import TestNav from "../screens/TestNav";
 import DashboardScreen from "../screens/Dashboard";
 import ResetPasswordScreen from "../screens/ResetPassword";
 import ClientsScreen from "../screens/Clients";
@@ -11,19 +9,19 @@ import MyTeamScreen from "../screens/MyTeam";
 import ExerciseBuilderScreen from "../screens/ExerciseBuilder";
 import TaskBuilderScreen from "../screens/TaskBuilder";
 import QuotesPlannerScreen from "../screens/QuotesPlanner";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const privateRoutes = [
-    { name: "TestNav", component: TestNav },
-    { name: "Dashboard", component: DashboardScreen },
-    { name: "Clients", component: ClientsScreen },
-    { name: "OnboardClient", component: OnboardClientScreen },
-    { name: "MyTeam", component: MyTeamScreen },
-    { name: "ExerciseBuilder", component: ExerciseBuilderScreen },
-    { name: "TaskBuilder", component: TaskBuilderScreen },
-    { name: "QuotesPlanner", component: QuotesPlannerScreen },
-    { name: "ResetPassword", component: ResetPasswordScreen },
+    { name: "Dashboard", component: DashboardScreen, drawerLabel: 'Dashboard' },
+    { name: "Clients", component: ClientsScreen, drawerLabel: 'Clients' },
+    { name: "OnboardClient", component: OnboardClientScreen, drawerLabel: 'Onboard Client' },
+    { name: "MyTeam", component: MyTeamScreen, drawerLabel: 'My Team' },
+    { name: "ExerciseBuilder", component: ExerciseBuilderScreen, drawerLabel: 'Exercise Builder' },
+    { name: "TaskBuilder", component: TaskBuilderScreen, drawerLabel: 'TaskBuilder' },
+    { name: "QuotesPlanner", component: QuotesPlannerScreen, drawerLabel: 'Quotes Planner' },
+    { name: "ResetPassword", component: ResetPasswordScreen, drawerLabel: 'Reset Password' },
 ];
 
 function Navigator() {
@@ -31,20 +29,26 @@ function Navigator() {
 
     if (isLoggedIn) {
         return (
-            <Stack.Navigator>
+            <Drawer.Navigator initialRouteName='Dashboard'>
                 {
-                    privateRoutes.map(({ name, component }) => (
-                        <Stack.Screen key={name} name={name} component={component} />
+                    privateRoutes.map(({ name, component, drawerLabel }) => (
+                        <Drawer.Screen
+                            key={name}
+                            name={name}
+                            component={component}
+                            options={{drawerLabel}}
+                            lazy
+                        />
                     ))
                 }
-            </Stack.Navigator>
+            </Drawer.Navigator>
         )
     } else {
         return (
-            <Stack.Navigator>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-            </Stack.Navigator>
+            <Drawer.Navigator initialRouteName='Login'>
+                <Drawer.Screen name="Login" component={LoginScreen} />
+                <Drawer.Screen name="ResetPassword" component={ResetPasswordScreen} />
+            </Drawer.Navigator>
         )
     }
 }

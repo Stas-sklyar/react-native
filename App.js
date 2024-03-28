@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {AuthProvider} from "./providers/Auth";
 import Navigator from "./components/Navigator";
 import {QueryClient, QueryClientProvider} from "react-query";
+import 'react-native-gesture-handler';
 
 const queryClient = new QueryClient();
 function App() {

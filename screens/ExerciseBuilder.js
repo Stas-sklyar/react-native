@@ -42,12 +42,8 @@ const ExerciseBuilderScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    page: {
-        marginTop: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     buttonContainer: {
+        padding: 20,
         gap: 10
     }
 });
