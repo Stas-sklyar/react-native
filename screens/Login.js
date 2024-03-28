@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import {useAuth} from "../providers/Auth";
+import g from "../assets/styles/global";
 
 const LoginScreen = ({ navigation }) => {
     const { login } = useAuth();
@@ -17,20 +18,18 @@ const LoginScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.logoPlaceholder}>
-                <Text>Logo Placeholder</Text>
-            </View>
-            <Text style={styles.heading}>Log in</Text>
+        <View style={g.form.container}>
+            <Text>Logo Placeholder</Text>
+            <Text style={g.form.heading}>Log in</Text>
             <TextInput
-                style={styles.input}
+                style={g.form.input}
                 onChangeText={setEmail}
                 value={email}
                 placeholder="E-mailadres"
                 keyboardType="email-address"
             />
             <TextInput
-                style={styles.input}
+                style={g.form.input}
                 onChangeText={setPassword}
                 value={password}
                 placeholder="Wachtwoord"
@@ -38,42 +37,12 @@ const LoginScreen = ({ navigation }) => {
             />
             <Button title="Log in" onPress={handleLogin} />
             <TouchableOpacity onPress={navigateToResetPassword}>
-                <Text
-                    style={styles.resetPasswordLink}
-                >
+                <Text style={g.form.link}>
                     Wachtwoord vergeten
                 </Text>
             </TouchableOpacity>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    logoPlaceholder: {
-        marginBottom: 20,
-    },
-    heading: {
-        fontSize: 24,
-        marginBottom: 20,
-    },
-    input: {
-        width: '100%',
-        marginBottom: 20,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 5,
-        padding: 10,
-    },
-    resetPasswordLink: {
-        color: 'blue',
-        marginTop: 20,
-    },
-});
 
 export default LoginScreen;

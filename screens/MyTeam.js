@@ -13,9 +13,10 @@ import {
 } from 'react-native';
 import {useMutation, useQuery} from "react-query";
 import {createColleague, fetchColleagues} from "../services/Colleague";
+import g from "../assets/styles/global";
 
 const MyTeamScreen = () => {
-    const { data: colleagues, error, isLoading, refetch } = useQuery('fetchColleagues', fetchColleagues);
+    const { data: colleagues, error: errorFetchingColleagues, isLoading: colleaguesIsLoading, refetch: refetchColleagues } = useQuery('fetchColleagues', fetchColleagues);
 
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -46,10 +47,6 @@ const MyTeamScreen = () => {
         mutate({ email, firstName, lastName })
     };
 
-    const handleSubmit = () => {
-        handleCreateColleague();
-    };
-
     const handleOnboardColleague = () => {
         console.log('Onboarding new colleague:', email, firstName, lastName);
     };
@@ -71,49 +68,48 @@ const MyTeamScreen = () => {
     };
 
     const onRefresh = useCallback(async () => {
-        await refetch()
+        await refetchColleagues()
     }, []);
 
     return (
         <ScrollView
-            style={styles.container}
             refreshControl={
-                <RefreshControl refreshing={isLoading} onRefresh={onRefresh}/>
+                <RefreshControl refreshing={colleaguesIsLoading} onRefresh={onRefresh}/>
             }
         >
-            <View style={styles.form}>
-                <Text style={styles.heading}>Nieuwe collega?</Text>
+            <View style={g.form.container}>
+                <Text style={g.form.heading}>Nieuwe collega?</Text>
                 <TextInput
-                    style={styles.input}
+                    style={g.form.input}
                     onChangeText={setEmail}
                     value={email}
                     placeholder="E-mailadres"
                     keyboardType="email-address"
                 />
                 <TextInput
-                    style={styles.input}
+                    style={g.form.input}
                     onChangeText={setFirstName}
                     value={firstName}
                     placeholder="Voornaam"
                 />
                 <TextInput
-                    style={styles.input}
+                    style={g.form.input}
                     onChangeText={setLastName}
                     value={lastName}
                     placeholder="Achternaam"
                 />
-                {isErrorDuringCreateColleague && <Text style={styles.error}>{`Error: ${errorDuringCreateColleague}`}</Text>}
-                <Button title="Register Colleague" onPress={handleSubmit} disabled={createColleagueFormIsLoading} />
+                {isErrorDuringCreateColleague && <Text style={g.form.errorMessage}>{`Error: ${errorDuringCreateColleague}`}</Text>}
+                <Button title="Register Colleague" onPress={handleCreateColleague} disabled={createColleagueFormIsLoading} />
                 {createColleagueFormIsLoading && (
                     <ActivityIndicator size="large" color="#0000ff" />
                 )}
             </View>
 
             {
-                isLoading ? <Text>Loading...</Text> : null
+                colleaguesIsLoading ? <Text>Loading colleagues...</Text> : null
             }
             {
-                error ? <Text>Error: {error.message}</Text> : null
+                errorFetchingColleagues ? <Text>Error: {errorFetchingColleagues.message}</Text> : null
             }
             <FlatList
                 style={styles.colleagueList}
@@ -136,31 +132,9 @@ const MyTeamScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    form: {
-        marginBottom: 20,
-        width: '100%',
-    },
-    heading: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: 'black',
-        marginBottom: 20,
-    },
-    input: {
-        width: '100%',
-        marginBottom: 10,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 5,
-        padding: 10,
-    },
     colleagueList: {
-      width: '100%'
+      width: '100%',
+      padding: 20,
     },
     colleagueItem: {
         width: '100%',

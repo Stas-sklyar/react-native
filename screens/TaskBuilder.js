@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {View, Text, TextInput, Switch, Button, StyleSheet, Alert, ActivityIndicator} from 'react-native';
 import {useMutation} from "react-query";
 import {createTask} from "../services/Task";
+import g from "../assets/styles/global";
 
 const TaskBuilderScreen = () => {
     const [taskName, setTaskName] = useState('');
@@ -10,7 +11,7 @@ const TaskBuilderScreen = () => {
     const { mutate, isLoading, isError, error } = useMutation(createTask, {
         onSuccess: () => {
            Alert.alert('Success', 'Task created successfully!');
-            setTaskName('');
+           setTaskName('');
         },
         onError: (error) => {
             console.error('Error resetting password:', error);
@@ -26,18 +27,18 @@ const TaskBuilderScreen = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>Taken ontwerper</Text>
+        <View style={g.form.container}>
+            <Text style={g.form.heading}>Taken ontwerper</Text>
 
             <TextInput
-                style={styles.input}
+                style={g.form.input}
                 onChangeText={setTaskName}
                 value={taskName}
                 placeholder="Task name"
             />
 
-            <View style={styles.switchContainer}>
-                <Text style={styles.label}>Recurring task:</Text>
+            <View style={g.form.switchContainer}>
+                <Text>Recurring task:</Text>
                 <Switch
                     onValueChange={setIsRecurring}
                     value={isRecurring}
@@ -45,7 +46,7 @@ const TaskBuilderScreen = () => {
                 <Text>{isRecurring ? 'Yes' : 'No'}</Text>
             </View>
 
-            {isError && <Text style={styles.error}>{`Error: ${error}`}</Text>}
+            {isError && <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text>}
             <Button title="Save" onPress={handleSubmit} disabled={isLoading} />
             {isLoading && (
                 <ActivityIndicator size="large" color="#0000ff" />
@@ -53,36 +54,5 @@ const TaskBuilderScreen = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    heading: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    input: {
-        width: '100%',
-        marginBottom: 20,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 5,
-        padding: 10,
-    },
-    switchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    label: {
-        marginRight: 10,
-    },
-    // Additional styles if needed
-});
 
 export default TaskBuilderScreen;

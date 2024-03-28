@@ -14,16 +14,16 @@ import QuotesPlannerScreen from "../screens/QuotesPlanner";
 
 const Stack = createNativeStackNavigator();
 
-const routes = [
+const privateRoutes = [
     { name: "TestNav", component: TestNav },
     { name: "Dashboard", component: DashboardScreen },
-    { name: "ResetPassword", component: ResetPasswordScreen },
     { name: "Clients", component: ClientsScreen },
     { name: "OnboardClient", component: OnboardClientScreen },
     { name: "MyTeam", component: MyTeamScreen },
     { name: "ExerciseBuilder", component: ExerciseBuilderScreen },
     { name: "TaskBuilder", component: TaskBuilderScreen },
     { name: "QuotesPlanner", component: QuotesPlannerScreen },
+    { name: "ResetPassword", component: ResetPasswordScreen },
 ];
 
 function Navigator() {
@@ -33,7 +33,7 @@ function Navigator() {
         return (
             <Stack.Navigator>
                 {
-                    routes.map(({ name, component }) => (
+                    privateRoutes.map(({ name, component }) => (
                         <Stack.Screen key={name} name={name} component={component} />
                     ))
                 }
@@ -43,6 +43,7 @@ function Navigator() {
         return (
             <Stack.Navigator>
                 <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
             </Stack.Navigator>
         )
     }
