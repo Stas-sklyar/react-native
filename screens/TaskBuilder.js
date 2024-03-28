@@ -8,7 +8,7 @@ const TaskBuilderScreen = () => {
     const [taskName, setTaskName] = useState('');
     const [isRecurring, setIsRecurring] = useState(false);
 
-    const { mutate, isLoading, isError, error } = useMutation(createTask, {
+    const { mutate: createTaskMutation, isLoading, error } = useMutation(createTask, {
         onSuccess: () => {
            Alert.alert('Success', 'Task created successfully!');
            setTaskName('');
@@ -22,7 +22,7 @@ const TaskBuilderScreen = () => {
         if (!taskName.trim()) {
             Alert.alert('Validation', 'Title is required!');
         } else {
-            mutate({ taskName, isRecurring });
+            createTaskMutation({ taskName, isRecurring });
         }
     };
 
@@ -46,7 +46,7 @@ const TaskBuilderScreen = () => {
                 <Text>{isRecurring ? 'Yes' : 'No'}</Text>
             </View>
 
-            {isError && <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text>}
+            {error ? <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text> : null}
             <Button title="Save" onPress={handleSubmit} disabled={isLoading} />
             {isLoading && (
                 <ActivityIndicator size="large" color="#0000ff" />

@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import {View, Text, TextInput, Button, Alert, ActivityIndicator} from 'react-native';
+import g from "../../assets/styles/global";
+import {ActivityIndicator, Alert, Button, Text, TextInput, View} from "react-native";
+import useEmailValidation from "../../hooks/useEmailValidation";
 import {useMutation} from "react-query";
-import {createClient} from "../services/Client";
-import g from '../assets/styles/global';
-import useEmailValidation from "../hooks/useEmailValidation";
+import {createColleague} from "../../services/Colleague";
+import React, {useState} from "react";
 
-const OnboardClientScreen = () => {
+function CreateColleagueForm() {
     const { email, setEmail, isEmailValid } = useEmailValidation();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const { mutate, isLoading, isError, error } = useMutation(createClient, {
+    const {
+        mutate,
+        isLoading: createColleagueFormIsLoading,
+        isError: isErrorDuringCreateColleague,
+        error: errorDuringCreateColleague
+    } = useMutation(createColleague, {
         onSuccess: () => {
-            Alert.alert('Client successfully created');
+            Alert.alert('Colleague successfully created');
             clearForm();
         },
         onError: (error) => {
-            console.error('Error creating client:', error);
+            console.error('Error creating colleague:', error);
         },
     });
 
@@ -26,15 +31,13 @@ const OnboardClientScreen = () => {
         setLastName('')
     }
 
-    const handleCreateClient = () => {
-        !isEmailValid
-            ? Alert.alert('Invalid email address')
-            : mutate({ email, firstName, lastName })
+    const handleCreateColleague = () => {
+        mutate({ email, firstName, lastName })
     };
 
     return (
         <View style={g.form.container}>
-            <Text style={g.form.heading}>Onboard Client</Text>
+            <Text style={g.form.heading}>Nieuwe collega?</Text>
             <TextInput
                 style={g.form.input}
                 onChangeText={setEmail}
@@ -54,13 +57,13 @@ const OnboardClientScreen = () => {
                 value={lastName}
                 placeholder="Achternaam"
             />
-            {isError && <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text>}
-            <Button title="Register Client" onPress={handleCreateClient} disabled={isLoading} />
-            {isLoading && (
+            {isErrorDuringCreateColleague && <Text style={g.form.errorMessage}>{`Error: ${errorDuringCreateColleague}`}</Text>}
+            <Button title="Register Colleague" onPress={handleCreateColleague} disabled={createColleagueFormIsLoading} />
+            {createColleagueFormIsLoading && (
                 <ActivityIndicator size="large" color="#0000ff" />
             )}
         </View>
-    );
-};
+    )
+}
 
-export default OnboardClientScreen;
+export default CreateColleagueForm;

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, Button, StyleSheet, ScrollView} from 'react-native';
+import g from '../assets/styles/global';
 
 const ExerciseBuilderScreen = () => {
     const [actions, setActions] = useState(['']);
@@ -10,21 +11,22 @@ const ExerciseBuilderScreen = () => {
 
     const saveExercise = () => {
         console.log('Exercise saved');
+        setActions(['']);
     };
 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.page}>
                 {actions.map((action, index) => (
-                    <View key={index} style={styles.questionItem}>
+                    <View key={index} style={g.form.container}>
                         <TextInput
-                            style={styles.input}
+                            style={g.form.input}
                             value={action}
                             placeholder={`Title ${index + 1}`}
                         />
 
                         <TextInput
-                            style={styles.input}
+                            style={g.form.input}
                             value={action}
                             placeholder={`Question ${index + 1}`}
                         />
@@ -40,25 +42,10 @@ const ExerciseBuilderScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
     page: {
         marginTop: 20,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    questionItem: {
-        width: '100%'
-    },
-    input: {
-        width: '100%',
-        marginBottom: 10,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 5,
-        padding: 10,
     },
     buttonContainer: {
         gap: 10

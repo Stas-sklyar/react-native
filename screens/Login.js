@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import {View, Text, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
 import {useAuth} from "../providers/Auth";
 import g from "../assets/styles/global";
+import useEmailValidation from "../hooks/useEmailValidation";
 
 const LoginScreen = ({ navigation }) => {
     const { login } = useAuth();
-    const [email, setEmail] = useState('');
+    const { email, setEmail, isEmailValid } = useEmailValidation();
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        console.log('Login with:', email, password);
-        login();
+        // TODO: fix condition => !isEmailValid
+        isEmailValid
+            ? Alert.alert('Please enter a valid email address.')
+            : login()
     };
 
     const navigateToResetPassword = () => {

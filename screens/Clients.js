@@ -37,7 +37,7 @@ const ClientsScreen = ({navigation}) => {
 
             <FlatList
                 data={clients}
-                keyExtractor={(item) => item.id}
+                keyExtractor={item => item.id}
                 renderItem={({item}) => (
                     <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item.id)}>
                         <Text style={styles.name}>{item.name}</Text>

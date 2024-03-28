@@ -4,10 +4,10 @@ import {useQuery} from "react-query";
 import {fetchQuotes} from "../services/Quote";
 
 const QuotesPlannerScreen = () => {
-    const { data: quotes, error, isLoading, refetch } = useQuery('fetchQuotes', fetchQuotes);
+    const { data: quotes, error, isLoading: quotesIsLoading, refetch: refetchQuotes } = useQuery('fetchQuotes', fetchQuotes);
 
     const updateQuote = (text, index) => {
-
+        console.log('Quote updated:', index, text);
     };
 
     const saveQuotes = () => {
@@ -15,7 +15,7 @@ const QuotesPlannerScreen = () => {
     };
 
     const onRefresh = useCallback(async () => {
-        await refetch()
+        await refetchQuotes()
     }, []);
 
     const renderQuoteItem = ({ item, index }) => (
@@ -23,7 +23,7 @@ const QuotesPlannerScreen = () => {
             <Text style={styles.weekNumber}>{item.week}</Text>
             <TextInput
                 style={styles.quoteInput}
-                onChangeText={(text) => updateQuote(text, index)}
+                onChangeText={text => updateQuote(text, index)}
                 value={item.quote}
                 placeholder="Enter quote..."
             />
@@ -34,13 +34,13 @@ const QuotesPlannerScreen = () => {
         <ScrollView
             style={styles.container}
             refreshControl={
-                <RefreshControl refreshing={isLoading} onRefresh={onRefresh}/>
+                <RefreshControl refreshing={quotesIsLoading} onRefresh={onRefresh} />
             }
         >
             <Text style={styles.heading}>Quotes planner</Text>
 
             {
-                isLoading ? <Text>Loading...</Text> : null
+                quotesIsLoading ? <Text>Loading quotes...</Text> : null
             }
             {
                 error ? <Text>Error: {error.message}</Text> : null
