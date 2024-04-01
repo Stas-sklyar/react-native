@@ -1,24 +1,15 @@
 import {DrawerContentScrollView, DrawerItem} from "@react-navigation/drawer";
 import {useAuth} from "../providers/Auth";
-
-const visibleInMenuLinks = [
-    { name: "Dashboard" },
-    { name: "Clients" },
-    { name: "Onboard Client" },
-    { name: "My Team" },
-    { name: "Exercise Builder" },
-    { name: "Task Builder" },
-    { name: "Quotes Planner" },
-    { name: "Reset Password" },
-];
+import {visibleInMenuLinksForAdmin, visibleInMenuLinksForUser} from "../config";
 
 function CustomDrawerContentView(props) {
-    const { logout } = useAuth();
+    const { logout, role } = useAuth();
 
     return (
         <DrawerContentScrollView {...props}>
             {
-                visibleInMenuLinks.map(item => (
+                (role === 'user' ? visibleInMenuLinksForUser : visibleInMenuLinksForAdmin)
+                    .map(item => (
                     <DrawerItem
                         key={item.name}
                         onPress={() => props.navigation.navigate(item.name)}
