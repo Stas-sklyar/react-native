@@ -1,8 +1,8 @@
-import {StyleSheet} from "react-native";
-import form from "./form";
+import {StyleSheet} from 'react-native'
+import form from './form'
 
 const styles = StyleSheet.create({
-    form,
-});
+  form
+})
 
-export default styles;
+export default styles

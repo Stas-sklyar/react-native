@@ -1,18 +1,18 @@
-import {userRoutes} from "../../config";
-import {createDrawerNavigator} from "@react-navigation/drawer";
-import CustomDrawerContent from "../CustomDrawerContent";
+import {userRoutes} from '../../config'
+import {createDrawerNavigator} from '@react-navigation/drawer'
+import CustomDrawerContent from '../CustomDrawerContent'
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator()
 
-function UserNavigator({ createDrawerScreens }) {
-    return (
-        <Drawer.Navigator
-            initialRouteName='Dashboard'
-            drawerContent={props => <CustomDrawerContent {...props} />}
-        >
-            {createDrawerScreens(userRoutes)}
-        </Drawer.Navigator>
-    );
+function UserNavigator({createDrawerScreens}) {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Dashboard"
+      drawerContent={props => <CustomDrawerContent {...props} />}
+    >
+      {createDrawerScreens(userRoutes)}
+    </Drawer.Navigator>
+  )
 }
 
-export default UserNavigator;
+export default UserNavigator
