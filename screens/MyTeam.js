@@ -8,7 +8,7 @@ import ColleaguesList from "../UI/MyTeam/ColleaguesList";
 import {useQuery} from "react-query";
 import {fetchColleagues} from "../services/Colleague";
 
-const MyTeamScreen = () => {
+const MyTeamScreen = ({navigation}) => {
     const {
         data: colleagues,
         error: errorFetchingColleagues,
@@ -31,6 +31,7 @@ const MyTeamScreen = () => {
                 colleagues={colleagues}
                 errorFetchingColleagues={errorFetchingColleagues}
                 colleaguesIsLoading={colleaguesIsLoading}
+                navigation={navigation}
             />
         </ScrollView>
     );

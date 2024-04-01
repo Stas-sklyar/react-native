@@ -10,18 +10,25 @@ import ExerciseBuilderScreen from "../screens/ExerciseBuilder";
 import TaskBuilderScreen from "../screens/TaskBuilder";
 import QuotesPlannerScreen from "../screens/QuotesPlanner";
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import ClientDetailsScreen from "../screens/ClientDetails";
+import ColleagueDetailsScreen from "../screens/ColleagueDetails";
+import EditColleagueScreen from "../screens/EditColleague";
+import CustomDrawerContent from "./CustomDrawerContent";
 
 const Drawer = createDrawerNavigator();
 
 const privateRoutes = [
-    { name: "Dashboard", component: DashboardScreen, drawerLabel: 'Dashboard' },
-    { name: "Clients", component: ClientsScreen, drawerLabel: 'Clients' },
-    { name: "OnboardClient", component: OnboardClientScreen, drawerLabel: 'Onboard Client' },
-    { name: "MyTeam", component: MyTeamScreen, drawerLabel: 'My Team' },
-    { name: "ExerciseBuilder", component: ExerciseBuilderScreen, drawerLabel: 'Exercise Builder' },
-    { name: "TaskBuilder", component: TaskBuilderScreen, drawerLabel: 'TaskBuilder' },
-    { name: "QuotesPlanner", component: QuotesPlannerScreen, drawerLabel: 'Quotes Planner' },
-    { name: "ResetPassword", component: ResetPasswordScreen, drawerLabel: 'Reset Password' },
+    { name: "Dashboard", component: DashboardScreen},
+    { name: "Clients", component: ClientsScreen},
+    { name: "Onboard Client", component: OnboardClientScreen},
+    { name: "My Team", component: MyTeamScreen},
+    { name: "Exercise Builder", component: ExerciseBuilderScreen},
+    { name: "Task Builder", component: TaskBuilderScreen},
+    { name: "Quotes Planner", component: QuotesPlannerScreen},
+    { name: "Reset Password", component: ResetPasswordScreen},
+    { name: "Client Details", component: ClientDetailsScreen},
+    { name: "Colleagues Details", component: ColleagueDetailsScreen},
+    { name: "Edit Colleague", component: EditColleagueScreen},
 ];
 
 function Navigator() {
@@ -29,14 +36,16 @@ function Navigator() {
 
     if (isLoggedIn) {
         return (
-            <Drawer.Navigator initialRouteName='Dashboard'>
+            <Drawer.Navigator
+                initialRouteName='Dashboard'
+                drawerContent={props => <CustomDrawerContent {...props} />}
+            >
                 {
                     privateRoutes.map(({ name, component, drawerLabel }) => (
                         <Drawer.Screen
                             key={name}
                             name={name}
                             component={component}
-                            options={{drawerLabel}}
                             lazy
                         />
                     ))
@@ -47,7 +56,7 @@ function Navigator() {
         return (
             <Drawer.Navigator initialRouteName='Login'>
                 <Drawer.Screen name="Login" component={LoginScreen} />
-                <Drawer.Screen name="ResetPassword" component={ResetPasswordScreen} />
+                <Drawer.Screen name="Reset Password" component={ResetPasswordScreen} />
             </Drawer.Navigator>
         )
     }

@@ -1,12 +1,12 @@
 import {Button, FlatList, StyleSheet, Text, View} from "react-native";
 
-function ColleaguesList({colleagues, errorFetchingColleagues, colleaguesIsLoading}) {
-    const handleView = (id) => {
-        console.log('Viewing colleague with ID:', id);
+function ColleaguesList({colleagues, errorFetchingColleagues, colleaguesIsLoading, navigation }) {
+    const handleView = (colleague) => {
+        navigation.navigate('Colleagues Details', { colleague })
     };
 
-    const handleEdit = (id) => {
-        console.log('Editing colleague with ID:', id);
+    const handleEdit = (colleague) => {
+        navigation.navigate('Edit Colleague', { colleague })
     };
 
     const handleDelete = (id) => {
@@ -35,8 +35,8 @@ function ColleaguesList({colleagues, errorFetchingColleagues, colleaguesIsLoadin
                         <View style={styles.colleagueItem}>
                             <Text style={styles.colleagueText}>{item.firstName} {item.lastName} - {item.status}</Text>
                             <View style={styles.buttonsContainer}>
-                                <Button title="View" onPress={() => handleView(item.id)}/>
-                                <Button title="Edit" onPress={() => handleEdit(item.id)}/>
+                                <Button title="View" onPress={() => handleView(item)}/>
+                                <Button title="Edit" onPress={() => handleEdit(item)}/>
                                 <Button title="Delete" onPress={() => handleDelete(item.id)}/>
                                 <Button title="Block" onPress={() => handleBlock(item.id)} color="red"/>
                             </View>

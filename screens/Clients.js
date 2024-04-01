@@ -10,8 +10,8 @@ const ClientsScreen = ({navigation}) => {
         isLoading,
         refetch
     } = useQuery('fetchClients', fetchClients);
-    const handleClientPress = (clientId) => {
-        navigation.navigate('ConsultModeScreen', {clientId});
+    const handleClientPress = (client) => {
+        navigation.navigate('Client Details', { client });
     };
 
     const onRefresh = useCallback(async () => {
@@ -41,7 +41,7 @@ const ClientsScreen = ({navigation}) => {
                     data={clients}
                     keyExtractor={item => item.id}
                     renderItem={({item}) => (
-                        <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item.id)}>
+                        <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item)}>
                             <Text style={styles.name}>{item.name}</Text>
                             <Text style={styles.details}>Begeleiders: {item.begeleiders.join(', ')}</Text>
                             <Text style={styles.details}>Status: {item.status}</Text>
