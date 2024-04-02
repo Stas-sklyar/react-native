@@ -4,15 +4,19 @@ import CustomModal from './CustomModal'
 import {useMutation, useQuery} from 'react-query'
 import RNPickerSelect from 'react-native-picker-select'
 import {fetchExercises} from '../../services/Exercise'
-import {assignExerciseToClient} from "../../services/Client"
+import {assignExerciseToClient} from '../../services/Client'
 
-const AssignExercisesModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
+const AssignExercisesModal = ({
+  modalIsVisible,
+  setModalIsVisible,
+  clientId
+}) => {
   const [selectedExercise, setSelectedExercise] = useState(null)
 
   const {
     data: exercises,
     error: errorDuringLoadingExercises,
-    isLoading: exercisesIsLoading,
+    isLoading: exercisesIsLoading
   } = useQuery('fetchExercises', fetchExercises)
 
   const {
@@ -49,15 +53,19 @@ const AssignExercisesModal = ({modalIsVisible, setModalIsVisible, clientId}) => 
         isVisible={modalIsVisible}
         onClose={closeModal}
         onSubmit={assignExercise}
-        submitBtnText='Assign exercise to client'
+        submitBtnText="Assign exercise to client"
         submittingForm={submittingForm}
-        error={errorDuringAssignExercise ? errorDuringAssignExercise.message : null}
+        error={
+          errorDuringAssignExercise ? errorDuringAssignExercise.message : null
+        }
       >
         <Text style={styles.title}>Assign exercise to client</Text>
 
         {exercisesIsLoading && <Text>Loading exercises...</Text>}
         {errorDuringLoadingExercises && (
-          <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
+          <Text>
+            Error loading exercises: {errorDuringLoadingExercises.message}
+          </Text>
         )}
         {!exercisesIsLoading && (
           <RNPickerSelect

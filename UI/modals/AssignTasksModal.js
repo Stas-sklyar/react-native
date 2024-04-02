@@ -1,10 +1,17 @@
 import React, {useState} from 'react'
-import {Text, View, StyleSheet, FlatList, Alert, ActivityIndicator} from 'react-native'
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Alert,
+  ActivityIndicator
+} from 'react-native'
 import CustomModal from './CustomModal'
 import {useMutation, useQuery} from 'react-query'
 import {fetchTasks} from '../../services/Task'
 import RNPickerSelect from 'react-native-picker-select'
-import {assignTaskToClient} from "../../services/Client"
+import {assignTaskToClient} from '../../services/Client'
 import g from '../../assets/styles/global'
 
 const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
@@ -13,7 +20,7 @@ const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
   const {
     data: tasks,
     error: errorDuringLoadingTasks,
-    isLoading: tasksIsLoading,
+    isLoading: tasksIsLoading
   } = useQuery('fetchTasks', fetchTasks)
 
   const {
@@ -30,7 +37,9 @@ const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
     }
   })
   const assignTasks = () => {
-    selectedTask ? assignTaskToClientMutation({clientId, taskId: selectedTask}) : Alert.alert('No task selected')
+    selectedTask
+      ? assignTaskToClientMutation({clientId, taskId: selectedTask})
+      : Alert.alert('No task selected')
   }
 
   const closeModal = () => {
@@ -48,7 +57,7 @@ const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
         isVisible={modalIsVisible}
         onClose={closeModal}
         onSubmit={assignTasks}
-        submitBtnText='Assign task to client'
+        submitBtnText="Assign task to client"
         submittingForm={submittingForm}
         error={errorDuringAssignTask ? errorDuringAssignTask.message : null}
       >

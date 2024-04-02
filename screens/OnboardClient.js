@@ -11,13 +11,25 @@ import {useMutation} from 'react-query'
 import {createClient} from '../services/Client'
 import g from '../assets/styles/global'
 import useEmailValidation from '../hooks/useEmailValidation'
+import useNameValidation from '../hooks/useNameValidation'
 
 const OnboardClientScreen = () => {
   const {email, setEmail, isEmailValid} = useEmailValidation()
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const {
+    firstName,
+    setFirstName,
+    isFirstNameValid,
+    lastName,
+    setLastName,
+    isLastNameValid
+  } = useNameValidation()
 
-  const {mutate: createClientMutation, isLoading: formSubmitting, isError, error: errorDuringCrateClient} = useMutation(createClient, {
+  const {
+    mutate: createClientMutation,
+    isLoading: formSubmitting,
+    isError,
+    error: errorDuringCrateClient
+  } = useMutation(createClient, {
     onSuccess: () => {
       Alert.alert('Client successfully created')
       clearForm()
@@ -34,9 +46,20 @@ const OnboardClientScreen = () => {
   }
 
   const handleCreateClient = () => {
-    !isEmailValid
-      ? Alert.alert('Invalid email address')
-      : createClientMutation({email, firstName, lastName})
+    if (!isEmailValid) {
+      Alert.alert('Invalid email')
+      return
+    }
+    if (!isFirstNameValid) {
+      Alert.alert('Invalid first name')
+      return
+    }
+    if (!isLastNameValid) {
+      Alert.alert('Invalid last name')
+      return
+    }
+
+    createClientMutation({email, firstName, lastName})
   }
 
   return (
@@ -61,7 +84,11 @@ const OnboardClientScreen = () => {
         value={lastName}
         placeholder="Achternaam"
       />
-      {errorDuringCrateClient ? <Text style={g.form.errorMessage}>{`Error: ${errorDuringCrateClient.message}`}</Text> : null}
+      {errorDuringCrateClient ? (
+        <Text
+          style={g.form.errorMessage}
+        >{`Error: ${errorDuringCrateClient.message}`}</Text>
+      ) : null}
       <Button
         title="Register Client"
         onPress={handleCreateClient}

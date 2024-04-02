@@ -29,3 +29,12 @@ export const createColleague = async colleague => {
     }, 1500)
   })
 }
+
+export const editColleague = async colleague => {
+  console.log(colleague)
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, 1500)
+  })
+}

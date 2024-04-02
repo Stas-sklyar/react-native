@@ -8,16 +8,16 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
-import g from "../../assets/styles/global";
+import g from '../../assets/styles/global'
 
 const CustomModal = ({
   isVisible,
   onClose,
   children,
   onSubmit,
-  submitBtnText='submit',
+  submitBtnText = 'submit',
   submittingForm = false,
-  error,
+  error
 }) => {
   return (
     <Modal
@@ -35,11 +35,21 @@ const CustomModal = ({
           <View style={styles.contentContainer}>{children}</View>
 
           {error && <Text style={g.form.errorMessage}>Error: {error}</Text>}
-          {submittingForm && <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />}
+          {submittingForm && (
+            <ActivityIndicator
+              size="large"
+              color="#0000ff"
+              style={styles.loader}
+            />
+          )}
 
           <View style={styles.buttonsContainer}>
             <Button title="Cancel" onPress={onClose} />
-            <Button title={submitBtnText} onPress={onSubmit} disabled={submittingForm} />
+            <Button
+              title={submitBtnText}
+              onPress={onSubmit}
+              disabled={submittingForm}
+            />
           </View>
         </View>
       </View>

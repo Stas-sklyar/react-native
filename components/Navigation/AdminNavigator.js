@@ -8,7 +8,7 @@ function AdminNavigator({createDrawerScreens}) {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      backBehavior='history'
+      backBehavior="history"
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
       {createDrawerScreens(adminRoutes)}
