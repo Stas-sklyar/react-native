@@ -35,7 +35,7 @@ const ClientsScreen = ({navigation}) => {
     >
       <Button
         title="Onboard client"
-        onPress={() => navigation.navigate('OnboardClient')}
+        onPress={() => navigation.navigate('Onboard Client')}
       />
 
       {isLoading && <Text>Loading clients...</Text>}
