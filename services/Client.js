@@ -60,3 +60,21 @@ export const createClient = async client => {
     }, 1500)
   })
 }
+
+export const assignTaskToClient = async ({clientId, taskId}) => {
+  console.log(clientId, taskId)
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, 1500)
+  })
+}
+
+export const assignExerciseToClient = async ({clientId, exerciseId}) => {
+  console.log(clientId, exerciseId)
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, 1500)
+  })
+}

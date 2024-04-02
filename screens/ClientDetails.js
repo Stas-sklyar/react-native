@@ -74,6 +74,7 @@ const ClientDetailsScreen = ({route}) => {
       {assignExerciseModalIsVisible && (
         <View>
           <AssignExercisesModal
+            clientId={client.id}
             modalIsVisible={assignExerciseModalIsVisible}
             setModalIsVisible={setAssignExerciseModalIsVisible}
           />
@@ -82,6 +83,7 @@ const ClientDetailsScreen = ({route}) => {
       {assignTaskModalIsVisible && (
         <View>
           <AssignTasksModal
+            clientId={client.id}
             modalIsVisible={assignTaskModalIsVisible}
             setModalIsVisible={setAssignTaskModalIsVisible}
           />

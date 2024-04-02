@@ -17,7 +17,7 @@ const OnboardClientScreen = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  const {mutate, isLoading, isError, error} = useMutation(createClient, {
+  const {mutate: createClientMutation, isLoading: formSubmitting, isError, error: errorDuringCrateClient} = useMutation(createClient, {
     onSuccess: () => {
       Alert.alert('Client successfully created')
       clearForm()
@@ -36,7 +36,7 @@ const OnboardClientScreen = () => {
   const handleCreateClient = () => {
     !isEmailValid
       ? Alert.alert('Invalid email address')
-      : mutate({email, firstName, lastName})
+      : createClientMutation({email, firstName, lastName})
   }
 
   return (
@@ -61,13 +61,13 @@ const OnboardClientScreen = () => {
         value={lastName}
         placeholder="Achternaam"
       />
-      {isError && <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text>}
+      {errorDuringCrateClient ? <Text style={g.form.errorMessage}>{`Error: ${errorDuringCrateClient.message}`}</Text> : null}
       <Button
         title="Register Client"
         onPress={handleCreateClient}
-        disabled={isLoading}
+        disabled={formSubmitting}
       />
-      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+      {formSubmitting && <ActivityIndicator size="large" color="#0000ff" />}
     </View>
   )
 }

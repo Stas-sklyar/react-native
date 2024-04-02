@@ -1,26 +1,37 @@
 import React, {useState} from 'react'
 import {Text, View, StyleSheet, Alert} from 'react-native'
 import CustomModal from './CustomModal'
-import {useQuery} from 'react-query'
+import {useMutation, useQuery} from 'react-query'
 import RNPickerSelect from 'react-native-picker-select'
 import {fetchExercises} from '../../services/Exercise'
+import {assignExerciseToClient} from "../../services/Client"
 
-const AssignExercisesModal = ({modalIsVisible, setModalIsVisible}) => {
+const AssignExercisesModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
   const [selectedExercise, setSelectedExercise] = useState(null)
 
   const {
     data: exercises,
     error: errorDuringLoadingExercises,
     isLoading: exercisesIsLoading,
-    refetch: reFetchExercises
   } = useQuery('fetchExercises', fetchExercises)
-  const assignTasks = () => {
-    if (!selectedExercise) {
-      Alert.alert('No task selected')
-      return
+
+  const {
+    mutate: assignExerciseToClientMutation,
+    isLoading: submittingForm,
+    error: errorDuringAssignExercise
+  } = useMutation(assignExerciseToClient, {
+    onSuccess: () => {
+      Alert.alert('Exercise successfully assigned')
+      closeModal()
+    },
+    onError: error => {
+      Alert.alert('Error assigning Exercise:', error)
     }
-    console.log('Assigning tasks to client')
-    setModalIsVisible(false)
+  })
+  const assignExercise = () => {
+    selectedExercise
+      ? assignExerciseToClientMutation({clientId, exerciseId: selectedExercise})
+      : Alert.alert('No exercise selected')
   }
 
   const closeModal = () => {
@@ -37,15 +48,16 @@ const AssignExercisesModal = ({modalIsVisible, setModalIsVisible}) => {
       <CustomModal
         isVisible={modalIsVisible}
         onClose={closeModal}
-        onSubmit={assignTasks}
+        onSubmit={assignExercise}
+        submitBtnText='Assign exercise to client'
+        submittingForm={submittingForm}
+        error={errorDuringAssignExercise ? errorDuringAssignExercise.message : null}
       >
         <Text style={styles.title}>Assign exercise to client</Text>
 
         {exercisesIsLoading && <Text>Loading exercises...</Text>}
         {errorDuringLoadingExercises && (
-          <Text>
-            Error loading exercises: {errorDuringLoadingExercises.message}
-          </Text>
+          <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
         )}
         {!exercisesIsLoading && (
           <RNPickerSelect

@@ -1,26 +1,36 @@
 import React, {useState} from 'react'
-import {Text, View, StyleSheet, FlatList, Alert} from 'react-native'
+import {Text, View, StyleSheet, FlatList, Alert, ActivityIndicator} from 'react-native'
 import CustomModal from './CustomModal'
-import {useQuery} from 'react-query'
+import {useMutation, useQuery} from 'react-query'
 import {fetchTasks} from '../../services/Task'
 import RNPickerSelect from 'react-native-picker-select'
+import {assignTaskToClient} from "../../services/Client"
+import g from '../../assets/styles/global'
 
-const AssignTasksModal = ({modalIsVisible, setModalIsVisible}) => {
+const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
   const [selectedTask, setSelectedTask] = useState(null)
 
   const {
     data: tasks,
     error: errorDuringLoadingTasks,
     isLoading: tasksIsLoading,
-    refetch: reFetchTasks
   } = useQuery('fetchTasks', fetchTasks)
-  const assignTasks = () => {
-    if (!selectedTask) {
-      Alert.alert('No task selected')
-      return
+
+  const {
+    mutate: assignTaskToClientMutation,
+    isLoading: submittingForm,
+    error: errorDuringAssignTask
+  } = useMutation(assignTaskToClient, {
+    onSuccess: () => {
+      Alert.alert('Tasks successfully assigned')
+      closeModal()
+    },
+    onError: error => {
+      Alert.alert('Error assigning task:', error)
     }
-    console.log('Assigning tasks to client')
-    setModalIsVisible(false)
+  })
+  const assignTasks = () => {
+    selectedTask ? assignTaskToClientMutation({clientId, taskId: selectedTask}) : Alert.alert('No task selected')
   }
 
   const closeModal = () => {
@@ -38,6 +48,9 @@ const AssignTasksModal = ({modalIsVisible, setModalIsVisible}) => {
         isVisible={modalIsVisible}
         onClose={closeModal}
         onSubmit={assignTasks}
+        submitBtnText='Assign task to client'
+        submittingForm={submittingForm}
+        error={errorDuringAssignTask ? errorDuringAssignTask.message : null}
       >
         <Text style={styles.title}>Assign tasks to client</Text>
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  ActivityIndicator,
   Button,
   Modal,
   StyleSheet,
@@ -7,8 +8,17 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
+import g from "../../assets/styles/global";
 
-const CustomModal = ({isVisible, onClose, children, onSubmit}) => {
+const CustomModal = ({
+  isVisible,
+  onClose,
+  children,
+  onSubmit,
+  submitBtnText='submit',
+  submittingForm = false,
+  error,
+}) => {
   return (
     <Modal
       animationType="fade"
@@ -24,9 +34,12 @@ const CustomModal = ({isVisible, onClose, children, onSubmit}) => {
 
           <View style={styles.contentContainer}>{children}</View>
 
+          {error && <Text style={g.form.errorMessage}>Error: {error}</Text>}
+          {submittingForm && <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />}
+
           <View style={styles.buttonsContainer}>
             <Button title="Cancel" onPress={onClose} />
-            <Button title="Assign Task" onPress={onSubmit} />
+            <Button title={submitBtnText} onPress={onSubmit} disabled={submittingForm} />
           </View>
         </View>
       </View>
@@ -60,6 +73,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%'
+  },
+  loader: {
+    marginBottom: 20
   },
   contentContainer: {
     marginBottom: 20
