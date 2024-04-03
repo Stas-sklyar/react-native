@@ -7,7 +7,16 @@ export const fetchClients = async () => {
           email: 'test.email@gmail.com',
           name: 'Client 1',
           status: 'active',
-          begeleiders: ['Begeleider 2', 'Begeleider 3'],
+          supervisors: [
+            {
+              id: 1,
+              name: 'Begeleider 1'
+            },
+            {
+              id: 2,
+              name: 'Begeleider 2'
+            }
+          ],
           assignedTasks: [
             {
               id: 1,
@@ -34,7 +43,7 @@ export const fetchClients = async () => {
           email: 'test.email@gmail.com',
           name: 'Client 2',
           status: 'inactive',
-          begeleiders: ['Begeleider 1', 'Begeleider 2'],
+          supervisors: [],
           assignedTasks: [],
           assignedExercise: []
         },
@@ -43,7 +52,12 @@ export const fetchClients = async () => {
           email: 'test.email@gmail.com',
           name: 'Client 3',
           status: 'active',
-          begeleiders: ['Begeleider 3'],
+          supervisors: [
+            {
+              id: 1,
+              name: 'Begeleider 3'
+            }
+          ],
           assignedTasks: [],
           assignedExercise: []
         }

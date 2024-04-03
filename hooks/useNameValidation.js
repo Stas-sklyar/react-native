@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
 const validateName = name => {
-  return name.trim().length > 1 && /^[A-Za-zА-Яа-я]+$/.test(name.trim())
+  return name.trim().length > 2 && /^[A-Za-zА-Яа-я]+$/.test(name.trim())
 }
 
 const useNameValidation = () => {

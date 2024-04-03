@@ -1,5 +1,6 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native'
 import React from 'react'
+import Task from './Task'
 
 function Tasks({
   tasks,
@@ -20,9 +21,9 @@ function Tasks({
           data={tasks}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <Text key={item.id} style={styles.item}>
-              {item.title}
-            </Text>
+            <View key={item.id} style={styles.item}>
+              <Task task={item} taken={false} />
+            </View>
           )}
           ListEmptyComponent={
             <Text style={styles.item}>Geen taken toegewezen</Text>
@@ -40,9 +41,9 @@ function Tasks({
           data={takenTasks}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <Text key={item.id} style={styles.item}>
-              {item.title}
-            </Text>
+            <View key={item.id} style={styles.item}>
+              <Task task={item} taken={true} />
+            </View>
           )}
           ListEmptyComponent={
             <Text style={styles.item}>Geen taken toegewezen</Text>
@@ -55,8 +56,7 @@ function Tasks({
 
 const styles = StyleSheet.create({
   item: {
-    fontSize: 16,
-    marginBottom: 5
+    marginBottom: 10
   },
   subHeading: {
     fontSize: 20,

@@ -1,7 +1,6 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer'
 import {useAuth} from '../providers/Auth'
 import {visibleInMenuLinksForAdmin, visibleInMenuLinksForUser} from '../config'
-import {DrawerActions} from '@react-navigation/native'
 function CustomDrawerContentView(props) {
   const {logout, role} = useAuth()
 

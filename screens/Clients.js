@@ -53,7 +53,8 @@ const ClientsScreen = ({navigation}) => {
             >
               <Text style={styles.name}>{item.name}</Text>
               <Text style={styles.details}>
-                Begeleiders: {item.begeleiders.join(', ')}
+                Begeleiders:{' '}
+                {item.supervisors.map(item => item.name).join(', ')}
               </Text>
               <Text style={styles.details}>Status: {item.status}</Text>
             </TouchableOpacity>
