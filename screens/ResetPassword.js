@@ -46,14 +46,12 @@ const ResetPasswordScreen = () => {
         placeholder="E-mailadres"
         keyboardType="email-address"
       />
-      {isError && (
-        <Text style={g.form.errorMessage}>Er is een fout opgetreden</Text>
-      )}
-      {isSuccess && (
+      {isError && <Text style={g.form.errorMessage}>Er is een fout opgetreden</Text>}
+      {isSuccess &&
         <Text style={g.form.successMessage}>
           Wachtwoord is succesvol gereset. Please, check your email
         </Text>
-      )}
+      }
       <Button
         title="Reset wachtwoord"
         onPress={handleSubmit}

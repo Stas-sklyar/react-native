@@ -85,11 +85,10 @@ const OnboardClientScreen = () => {
         value={lastName}
         placeholder="Achternaam"
       />
-      {errorDuringCrateClient ? (
-        <Text
-          style={g.form.errorMessage}
-        >{`Error: ${errorDuringCrateClient.message}`}</Text>
-      ) : null}
+      {errorDuringCrateClient
+        ? <Text style={g.form.errorMessage}>{`Error: ${errorDuringCrateClient.message}`}</Text>
+        : null
+      }
       <Button
         title="Register Client"
         onPress={handleCreateClient}

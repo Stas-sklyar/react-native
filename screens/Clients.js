@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   RefreshControl,
-  ScrollView
+  ScrollView, View
 } from 'react-native'
 import {useQuery} from 'react-query'
 import {fetchClients} from '../services/Client'
@@ -31,12 +31,7 @@ const ClientsScreen = ({navigation}) => {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
-      }
-    >
+    <View style={styles.container}>
       <Button
         title="Onboard client"
         onPress={() => navigation.navigate('Onboard Client')}
@@ -50,6 +45,9 @@ const ClientsScreen = ({navigation}) => {
         <FlatList
           data={clients}
           keyExtractor={client => client.id}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }
           renderItem={({item}) => (
             <TouchableOpacity
               style={styles.item}
@@ -63,7 +61,7 @@ const ClientsScreen = ({navigation}) => {
           ListEmptyComponent={<Text style={styles.item}>Empty list</Text>}
         />
       )}
-    </ScrollView>
+    </View>
   )
 }
 
