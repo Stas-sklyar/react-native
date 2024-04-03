@@ -5,8 +5,8 @@ function Task({task, taken}) {
     <View style={styles.task}>
       <Text style={styles.title}>{task.title}</Text>
       <View style={styles.buttonsContainer}>
-        {!taken ? <Button title="Take" /> : <Button title="Cancel" />}
-        {taken && <Button title="Complete" />}
+        {!taken ? <Button title='Take' /> : <Button title='Cancel' />}
+        {taken && <Button title='Complete' />}
       </View>
     </View>
   )

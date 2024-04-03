@@ -5,14 +5,13 @@ import {
   Button,
   Alert,
   Text,
-  ActivityIndicator,
   Switch
 } from 'react-native'
 import g from '../assets/styles/global'
 import useNameValidation from '../hooks/useNameValidation'
 import {useMutation} from 'react-query'
-import {createColleague, editColleague} from '../services/Colleague'
-import Loader from "../components/Loader";
+import {editColleague} from '../services/Colleague'
+import Loader from '../components/Loader'
 
 const EditColleagueScreen = ({route}) => {
   const {colleague} = route.params
@@ -85,21 +84,21 @@ const EditColleagueScreen = ({route}) => {
         style={g.form.input}
         onChangeText={setEmail}
         value={email}
-        placeholder="E-mailadres"
-        keyboardType="email-address"
+        placeholder='E-mailadres'
+        keyboardType='email-address'
         readOnly
       />
       <TextInput
         style={g.form.input}
         onChangeText={setFirstName}
         value={firstName}
-        placeholder="First Name"
+        placeholder='First Name'
       />
       <TextInput
         style={g.form.input}
         onChangeText={setLastName}
         value={lastName}
-        placeholder="Last Name"
+        placeholder='Last Name'
       />
       <View style={g.form.switchContainer}>
         <Text>Status:</Text>
@@ -107,12 +106,13 @@ const EditColleagueScreen = ({route}) => {
         <Text>{status ? 'Active' : 'Inactive'}</Text>
       </View>
 
-      {errorDuringEditColleague
-        ? <Text style={g.form.errorMessage}>{`Error: ${errorDuringEditColleague.message}`}</Text>
-        : null
-      }
+      {errorDuringEditColleague ? (
+        <Text
+          style={g.form.errorMessage}
+        >{`Error: ${errorDuringEditColleague.message}`}</Text>
+      ) : null}
       <Button
-        title="Change Colleague Data"
+        title='Change Colleague Data'
         onPress={handleEditColleague}
         disabled={editColleagueFormIsLoading}
       />

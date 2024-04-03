@@ -3,14 +3,13 @@ import {
   Text,
   TextInput,
   Button,
-  Alert,
-  ActivityIndicator
+  Alert
 } from 'react-native'
 import {useMutation} from 'react-query'
 import {resetPassword} from '../services/Auth'
 import g from '../assets/styles/global'
 import useEmailValidation from '../hooks/useEmailValidation'
-import Loader from "../components/Loader";
+import Loader from '../components/Loader'
 
 const ResetPasswordScreen = () => {
   const {email, setEmail, isEmailValid} = useEmailValidation()
@@ -43,17 +42,19 @@ const ResetPasswordScreen = () => {
         style={g.form.input}
         onChangeText={setEmail}
         value={email}
-        placeholder="E-mailadres"
-        keyboardType="email-address"
+        placeholder='E-mailadres'
+        keyboardType='email-address'
       />
-      {isError && <Text style={g.form.errorMessage}>Er is een fout opgetreden</Text>}
-      {isSuccess &&
+      {isError && (
+        <Text style={g.form.errorMessage}>Er is een fout opgetreden</Text>
+      )}
+      {isSuccess && (
         <Text style={g.form.successMessage}>
           Wachtwoord is succesvol gereset. Please, check your email
         </Text>
-      }
+      )}
       <Button
-        title="Reset wachtwoord"
+        title='Reset wachtwoord'
         onPress={handleSubmit}
         disabled={isLoading}
       />

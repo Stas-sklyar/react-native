@@ -25,7 +25,7 @@ function CustomDrawerContentView(props) {
         />
       ))}
 
-      <DrawerItem onPress={handleLogout} label="Logout" />
+      <DrawerItem onPress={handleLogout} label='Logout' />
     </DrawerContentScrollView>
   )
 }

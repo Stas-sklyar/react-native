@@ -15,13 +15,13 @@ function Actions() {
         onPress={() => {
           setAssignTaskModalIsVisible(true)
         }}
-        title="Assign tasks to client"
+        title='Assign tasks to client'
       />
       <Button
         onPress={() => {
           setAssignExerciseModalIsVisible(true)
         }}
-        title="Assign exercise to client"
+        title='Assign exercise to client'
       />
 
       <Modals

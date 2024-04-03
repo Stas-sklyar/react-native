@@ -5,13 +5,12 @@ import {
   TextInput,
   Switch,
   Button,
-  Alert,
-  ActivityIndicator
+  Alert
 } from 'react-native'
 import {useMutation} from 'react-query'
 import {createTask} from '../services/Task'
 import g from '../assets/styles/global'
-import Loader from "../components/Loader";
+import Loader from '../components/Loader'
 
 const TaskBuilderScreen = () => {
   const [taskName, setTaskName] = useState('')
@@ -47,7 +46,7 @@ const TaskBuilderScreen = () => {
         style={g.form.input}
         onChangeText={setTaskName}
         value={taskName}
-        placeholder="Task name"
+        placeholder='Task name'
       />
 
       <View style={g.form.switchContainer}>
@@ -56,8 +55,10 @@ const TaskBuilderScreen = () => {
         <Text>{isRecurring ? 'Yes' : 'No'}</Text>
       </View>
 
-      {error ? <Text style={g.form.errorMessage}>{`Error: ${error.message}`}</Text> : null}
-      <Button title="Save" onPress={handleSubmit} disabled={isLoading} />
+      {error ? (
+        <Text style={g.form.errorMessage}>{`Error: ${error.message}`}</Text>
+      ) : null}
+      <Button title='Save' onPress={handleSubmit} disabled={isLoading} />
       {isLoading && <Loader />}
     </View>
   )

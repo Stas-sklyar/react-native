@@ -39,13 +39,13 @@ function ColleaguesList({
                 {item.firstName} {item.lastName} - {item.status}
               </Text>
               <View style={styles.buttonsContainer}>
-                <Button title="View" onPress={() => handleView(item)} />
-                <Button title="Edit" onPress={() => handleEdit(item)} />
-                <Button title="Delete" onPress={() => handleDelete(item.id)} />
+                <Button title='View' onPress={() => handleView(item)} />
+                <Button title='Edit' onPress={() => handleEdit(item)} />
+                <Button title='Delete' onPress={() => handleDelete(item.id)} />
                 <Button
-                  title="Block"
+                  title='Block'
                   onPress={() => handleBlock(item.id)}
-                  color="red"
+                  color='red'
                 />
               </View>
             </View>

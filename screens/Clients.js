@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   RefreshControl,
-  ScrollView, View
+  View
 } from 'react-native'
 import {useQuery} from 'react-query'
 import {fetchClients} from '../services/Client'
@@ -33,7 +33,7 @@ const ClientsScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Button
-        title="Onboard client"
+        title='Onboard client'
         onPress={() => navigation.navigate('Onboard Client')}
       />
 
@@ -54,7 +54,9 @@ const ClientsScreen = ({navigation}) => {
               onPress={() => handleClientPress(item)}
             >
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.details}>Begeleiders: {getSupervisorsList(item)}</Text>
+              <Text style={styles.details}>
+                Begeleiders: {getSupervisorsList(item)}
+              </Text>
               <Text style={styles.details}>Status: {item.status}</Text>
             </TouchableOpacity>
           )}

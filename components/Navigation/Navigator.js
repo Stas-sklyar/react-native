@@ -19,9 +19,9 @@ function Navigator() {
 
   if (!isLoggedIn) {
     return (
-      <Drawer.Navigator initialRouteName="Login">
-        <Drawer.Screen name="Login" component={LoginScreen} />
-        <Drawer.Screen name="Reset Password" component={ResetPasswordScreen} />
+      <Drawer.Navigator initialRouteName='Login'>
+        <Drawer.Screen name='Login' component={LoginScreen} />
+        <Drawer.Screen name='Reset Password' component={ResetPasswordScreen} />
       </Drawer.Navigator>
     )
   }

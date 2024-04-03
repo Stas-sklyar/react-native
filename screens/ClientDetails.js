@@ -12,8 +12,8 @@ const ClientDetailsScreen = ({route}) => {
     <ScrollView style={styles.container}>
       <ClientInfo client={client} />
       <SupervisorsList supervisors={client.supervisors} />
-      <List title="Assigned tasks" items={client.assignedTasks} />
-      <List title="Assigned exercise" items={client.assignedExercise} />
+      <List title='Assigned tasks' items={client.assignedTasks} />
+      <List title='Assigned exercise' items={client.assignedExercise} />
       <Actions />
     </ScrollView>
   )

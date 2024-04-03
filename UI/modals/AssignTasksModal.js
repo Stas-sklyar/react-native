@@ -3,16 +3,13 @@ import {
   Text,
   View,
   StyleSheet,
-  FlatList,
   Alert,
-  ActivityIndicator
 } from 'react-native'
 import CustomModal from './CustomModal'
 import {useMutation, useQuery} from 'react-query'
 import {fetchTasks} from '../../services/Task'
 import RNPickerSelect from 'react-native-picker-select'
 import {assignTaskToClient} from '../../services/Client'
-import g from '../../assets/styles/global'
 
 const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
   const [selectedTask, setSelectedTask] = useState(null)
@@ -57,7 +54,7 @@ const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
         isVisible={modalIsVisible}
         onClose={closeModal}
         onSubmit={assignTasks}
-        submitBtnText="Assign task to client"
+        submitBtnText='Assign task to client'
         submittingForm={submittingForm}
         error={errorDuringAssignTask ? errorDuringAssignTask.message : null}
       >

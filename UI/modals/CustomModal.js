@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  ActivityIndicator,
   Button,
   Modal,
   StyleSheet,
@@ -9,7 +8,7 @@ import {
   View
 } from 'react-native'
 import g from '../../assets/styles/global'
-import Loader from "../../components/Loader";
+import Loader from '../../components/Loader'
 
 const CustomModal = ({
   isVisible,
@@ -22,7 +21,7 @@ const CustomModal = ({
 }) => {
   return (
     <Modal
-      animationType="fade"
+      animationType='fade'
       transparent={true}
       visible={isVisible}
       onRequestClose={onClose}
@@ -36,10 +35,14 @@ const CustomModal = ({
           <View style={styles.contentContainer}>{children}</View>
 
           {error && <Text style={g.form.errorMessage}>Error: {error}</Text>}
-          {submittingForm && <View style={styles.loader}><Loader /></View>}
+          {submittingForm && (
+            <View style={styles.loader}>
+              <Loader />
+            </View>
+          )}
 
           <View style={styles.buttonsContainer}>
-            <Button title="Cancel" onPress={onClose} />
+            <Button title='Cancel' onPress={onClose} />
             <Button
               title={submitBtnText}
               onPress={onSubmit}

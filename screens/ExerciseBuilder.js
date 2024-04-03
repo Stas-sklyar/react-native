@@ -1,9 +1,16 @@
 import React, {useState} from 'react'
-import {View, TextInput, Button, StyleSheet, ScrollView, Alert} from 'react-native'
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  ScrollView,
+  Alert
+} from 'react-native'
 import g from '../assets/styles/global'
-import {useMutation} from "react-query";
-import {createTask} from "../services/Task";
-import Loader from "../components/Loader";
+import {useMutation} from 'react-query'
+import {createTask} from '../services/Task'
+import Loader from '../components/Loader'
 
 const emptyAction = {
   title: '',
@@ -55,22 +62,36 @@ const ExerciseBuilderScreen = () => {
               style={g.form.input}
               value={action.title}
               placeholder={`Title ${index + 1}`}
-              onChangeText={(value) => handleActionChange(index, 'title', value)}
+              onChangeText={value => handleActionChange(index, 'title', value)}
             />
 
             <TextInput
               style={g.form.input}
               value={action.question}
               placeholder={`Question ${index + 1}`}
-              onChangeText={(value) => handleActionChange(index, 'question', value)}
+              onChangeText={value =>
+                handleActionChange(index, 'question', value)
+              }
             />
           </View>
         ))}
         <View style={styles.buttonContainer}>
-          <Button title="Add Answer Field" onPress={addActionFields} disabled={exerciseCreating} />
-          <Button title="Save" onPress={saveExercise} disabled={exerciseCreating} />
+          <Button
+            title='Add Answer Field'
+            onPress={addActionFields}
+            disabled={exerciseCreating}
+          />
+          <Button
+            title='Save'
+            onPress={saveExercise}
+            disabled={exerciseCreating}
+          />
           {exerciseCreating && <Loader />}
-          {errorDuringExerciseCreation && <Text style={g.form.errorMessage}>{`Error: ${errorDuringExerciseCreation.message}`}</Text>}
+          {errorDuringExerciseCreation && (
+            <Text
+              style={g.form.errorMessage}
+            >{`Error: ${errorDuringExerciseCreation.message}`}</Text>
+          )}
         </View>
       </View>
     </ScrollView>

@@ -5,7 +5,6 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  ScrollView,
   FlatList,
   RefreshControl
 } from 'react-native'
@@ -40,7 +39,7 @@ const QuotesPlannerScreen = () => {
         style={g.form.input}
         onChangeText={text => updateQuote(text, index)}
         value={item.quote}
-        placeholder="Enter quote..."
+        placeholder='Enter quote...'
       />
     </View>
   )
@@ -58,7 +57,7 @@ const QuotesPlannerScreen = () => {
           <RefreshControl refreshing={quotesIsLoading} onRefresh={onRefresh} />
         }
       />
-      <Button title="Save" onPress={saveQuotes} />
+      <Button title='Save' onPress={saveQuotes} />
     </View>
   )
 }
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     width: 50,
     fontSize: 16
-  },
+  }
 })
 
 export default QuotesPlannerScreen

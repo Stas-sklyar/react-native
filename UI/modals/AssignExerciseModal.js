@@ -53,7 +53,7 @@ const AssignExercisesModal = ({
         isVisible={modalIsVisible}
         onClose={closeModal}
         onSubmit={assignExercise}
-        submitBtnText="Assign exercise to client"
+        submitBtnText='Assign exercise to client'
         submittingForm={submittingForm}
         error={
           errorDuringAssignExercise ? errorDuringAssignExercise.message : null
@@ -63,7 +63,9 @@ const AssignExercisesModal = ({
 
         {exercisesIsLoading && <Text>Loading exercises...</Text>}
         {errorDuringLoadingExercises && (
-          <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
+          <Text>
+            Error loading exercises: {errorDuringLoadingExercises.message}
+          </Text>
         )}
         {!exercisesIsLoading && (
           <RNPickerSelect

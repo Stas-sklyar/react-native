@@ -33,17 +33,17 @@ const LoginScreen = ({navigation}) => {
         style={g.form.input}
         onChangeText={setEmail}
         value={email}
-        placeholder="E-mailadres"
-        keyboardType="email-address"
+        placeholder='E-mailadres'
+        keyboardType='email-address'
       />
       <TextInput
         style={g.form.input}
         onChangeText={setPassword}
         value={password}
-        placeholder="Wachtwoord"
+        placeholder='Wachtwoord'
         secureTextEntry
       />
-      <Button title="Log in" onPress={handleLogin} />
+      <Button title='Log in' onPress={handleLogin} />
       <TouchableOpacity onPress={navigateToResetPassword}>
         <Text style={g.form.link}>Wachtwoord vergeten</Text>
       </TouchableOpacity>

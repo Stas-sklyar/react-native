@@ -1,6 +1,5 @@
 import g from '../../assets/styles/global'
 import {
-  ActivityIndicator,
   Alert,
   Button,
   Text,
@@ -10,9 +9,8 @@ import {
 import useEmailValidation from '../../hooks/useEmailValidation'
 import {useMutation} from 'react-query'
 import {createColleague} from '../../services/Colleague'
-import React, {useState} from 'react'
 import useNameValidation from '../../hooks/useNameValidation'
-import Loader from "../../components/Loader";
+import Loader from '../../components/Loader'
 
 function CreateColleagueForm() {
   const {email, setEmail, isEmailValid} = useEmailValidation()
@@ -69,20 +67,20 @@ function CreateColleagueForm() {
         style={g.form.input}
         onChangeText={setEmail}
         value={email}
-        placeholder="E-mailadres"
-        keyboardType="email-address"
+        placeholder='E-mailadres'
+        keyboardType='email-address'
       />
       <TextInput
         style={g.form.input}
         onChangeText={setFirstName}
         value={firstName}
-        placeholder="Voornaam"
+        placeholder='Voornaam'
       />
       <TextInput
         style={g.form.input}
         onChangeText={setLastName}
         value={lastName}
-        placeholder="Achternaam"
+        placeholder='Achternaam'
       />
 
       {isErrorDuringCreateColleague && (
@@ -91,7 +89,7 @@ function CreateColleagueForm() {
         >{`Error: ${errorDuringCreateColleague.message}`}</Text>
       )}
       <Button
-        title="Register Colleague"
+        title='Register Colleague'
         onPress={handleCreateColleague}
         disabled={createColleagueFormIsLoading}
       />

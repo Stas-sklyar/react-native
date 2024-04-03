@@ -1,18 +1,16 @@
-import React, {useState} from 'react'
 import {
   View,
   Text,
   TextInput,
   Button,
-  Alert,
-  ActivityIndicator
+  Alert
 } from 'react-native'
 import {useMutation} from 'react-query'
 import {createClient} from '../services/Client'
 import g from '../assets/styles/global'
 import useEmailValidation from '../hooks/useEmailValidation'
 import useNameValidation from '../hooks/useNameValidation'
-import Loader from "../components/Loader";
+import Loader from '../components/Loader'
 
 const OnboardClientScreen = () => {
   const {email, setEmail, isEmailValid} = useEmailValidation()
@@ -70,27 +68,28 @@ const OnboardClientScreen = () => {
         style={g.form.input}
         onChangeText={setEmail}
         value={email}
-        placeholder="E-mailadres"
-        keyboardType="email-address"
+        placeholder='E-mailadres'
+        keyboardType='email-address'
       />
       <TextInput
         style={g.form.input}
         onChangeText={setFirstName}
         value={firstName}
-        placeholder="Voornaam"
+        placeholder='Voornaam'
       />
       <TextInput
         style={g.form.input}
         onChangeText={setLastName}
         value={lastName}
-        placeholder="Achternaam"
+        placeholder='Achternaam'
       />
-      {errorDuringCrateClient
-        ? <Text style={g.form.errorMessage}>{`Error: ${errorDuringCrateClient.message}`}</Text>
-        : null
-      }
+      {errorDuringCrateClient ? (
+        <Text
+          style={g.form.errorMessage}
+        >{`Error: ${errorDuringCrateClient.message}`}</Text>
+      ) : null}
       <Button
-        title="Register Client"
+        title='Register Client'
         onPress={handleCreateClient}
         disabled={formSubmitting}
       />
