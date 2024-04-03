@@ -16,7 +16,7 @@ function Exercises({
       {!exercisesIsLoading && (
         <FlatList
           data={exercises}
-          keyExtractor={item => item.id}
+          keyExtractor={exercise => exercise.id}
           renderItem={({item}) => (
             <Text key={item.id} style={styles.item}>
               {item.title}

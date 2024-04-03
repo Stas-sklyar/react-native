@@ -18,3 +18,12 @@ export const fetchExercises = async () => {
     }, 1000)
   })
 }
+
+export const createExercise = async exercise => {
+  console.log(exercise)
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, 1500)
+  })
+}

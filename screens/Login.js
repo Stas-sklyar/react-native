@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
   }
 
   const navigateToResetPassword = () => {
-    navigation.navigate('ResetPassword')
+    navigation.navigate('Reset Password')
   }
 
   return (

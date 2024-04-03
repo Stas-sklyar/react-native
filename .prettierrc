@@ -4,7 +4,10 @@
   "arrowParens": "avoid",
   "bracketSpacing": false,
   "singleQuote": true,
-  "printWidth": 80,
+  "printWidth": 20,
   "tabWidth": 2,
-  "useTabs": false
+  "useTabs": false,
+  "jsxSingleQuote": true,
+  "jsxBracketSameLine": false,
+
 }

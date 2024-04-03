@@ -63,9 +63,7 @@ const AssignExercisesModal = ({
 
         {exercisesIsLoading && <Text>Loading exercises...</Text>}
         {errorDuringLoadingExercises && (
-          <Text>
-            Error loading exercises: {errorDuringLoadingExercises.message}
-          </Text>
+          <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
         )}
         {!exercisesIsLoading && (
           <RNPickerSelect
@@ -74,9 +72,7 @@ const AssignExercisesModal = ({
               label: exercise.title,
               value: exercise.id
             }))}
-            onValueChange={value => {
-              setSelectedExercise(value)
-            }}
+            onValueChange={value => setSelectedExercise(value)}
             value={selectedExercise}
           />
         )}

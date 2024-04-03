@@ -27,7 +27,7 @@ const TaskBuilderScreen = () => {
       setTaskName('')
     },
     onError: error => {
-      console.error('Error resetting password:', error)
+      console.error('Error creating task:', error)
     }
   })
 
