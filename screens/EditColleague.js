@@ -12,6 +12,7 @@ import g from '../assets/styles/global'
 import useNameValidation from '../hooks/useNameValidation'
 import {useMutation} from 'react-query'
 import {createColleague, editColleague} from '../services/Colleague'
+import Loader from "../components/Loader";
 
 const EditColleagueScreen = ({route}) => {
   const {colleague} = route.params
@@ -106,19 +107,16 @@ const EditColleagueScreen = ({route}) => {
         <Text>{status ? 'Active' : 'Inactive'}</Text>
       </View>
 
-      {errorDuringEditColleague ? (
-        <Text
-          style={g.form.errorMessage}
-        >{`Error: ${errorDuringEditColleague.message}`}</Text>
-      ) : null}
+      {errorDuringEditColleague
+        ? <Text style={g.form.errorMessage}>{`Error: ${errorDuringEditColleague.message}`}</Text>
+        : null
+      }
       <Button
         title="Change Colleague Data"
         onPress={handleEditColleague}
         disabled={editColleagueFormIsLoading}
       />
-      {editColleagueFormIsLoading && (
-        <ActivityIndicator size="large" color="#0000ff" />
-      )}
+      {editColleagueFormIsLoading && <Loader />}
     </View>
   )
 }

@@ -12,6 +12,7 @@ import {createClient} from '../services/Client'
 import g from '../assets/styles/global'
 import useEmailValidation from '../hooks/useEmailValidation'
 import useNameValidation from '../hooks/useNameValidation'
+import Loader from "../components/Loader";
 
 const OnboardClientScreen = () => {
   const {email, setEmail, isEmailValid} = useEmailValidation()
@@ -94,7 +95,7 @@ const OnboardClientScreen = () => {
         onPress={handleCreateClient}
         disabled={formSubmitting}
       />
-      {formSubmitting && <ActivityIndicator size="large" color="#0000ff" />}
+      {formSubmitting && <Loader />}
     </View>
   )
 }

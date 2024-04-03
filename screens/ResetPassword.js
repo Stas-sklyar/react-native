@@ -10,6 +10,7 @@ import {useMutation} from 'react-query'
 import {resetPassword} from '../services/Auth'
 import g from '../assets/styles/global'
 import useEmailValidation from '../hooks/useEmailValidation'
+import Loader from "../components/Loader";
 
 const ResetPasswordScreen = () => {
   const {email, setEmail, isEmailValid} = useEmailValidation()
@@ -58,7 +59,7 @@ const ResetPasswordScreen = () => {
         onPress={handleSubmit}
         disabled={isLoading}
       />
-      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+      {isLoading && <Loader />}
     </View>
   )
 }

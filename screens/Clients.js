@@ -16,15 +16,19 @@ const ClientsScreen = ({navigation}) => {
     data: clients,
     error,
     isLoading,
-    refetch
+    refetch: refetchClients
   } = useQuery('fetchClients', fetchClients)
   const handleClientPress = client => {
     navigation.navigate('Client Details', {client})
   }
 
   const onRefresh = useCallback(async () => {
-    await refetch()
+    await refetchClients()
   }, [])
+
+  const getSupervisorsList = client => {
+    return client.supervisors.map(item => item.name).join(', ')
+  }
 
   return (
     <ScrollView
@@ -45,17 +49,14 @@ const ClientsScreen = ({navigation}) => {
       {!isLoading && (
         <FlatList
           data={clients}
-          keyExtractor={item => item.id}
+          keyExtractor={client => client.id}
           renderItem={({item}) => (
             <TouchableOpacity
               style={styles.item}
               onPress={() => handleClientPress(item)}
             >
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.details}>
-                Begeleiders:{' '}
-                {item.supervisors.map(item => item.name).join(', ')}
-              </Text>
+              <Text style={styles.details}>Begeleiders: {getSupervisorsList(item)}</Text>
               <Text style={styles.details}>Status: {item.status}</Text>
             </TouchableOpacity>
           )}

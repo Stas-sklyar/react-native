@@ -12,6 +12,7 @@ import {useMutation} from 'react-query'
 import {createColleague} from '../../services/Colleague'
 import React, {useState} from 'react'
 import useNameValidation from '../../hooks/useNameValidation'
+import Loader from "../../components/Loader";
 
 function CreateColleagueForm() {
   const {email, setEmail, isEmailValid} = useEmailValidation()
@@ -94,9 +95,7 @@ function CreateColleagueForm() {
         onPress={handleCreateColleague}
         disabled={createColleagueFormIsLoading}
       />
-      {createColleagueFormIsLoading && (
-        <ActivityIndicator size="large" color="#0000ff" />
-      )}
+      {createColleagueFormIsLoading && <Loader />}
     </View>
   )
 }

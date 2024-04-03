@@ -11,6 +11,7 @@ import {
 import {useMutation} from 'react-query'
 import {createTask} from '../services/Task'
 import g from '../assets/styles/global'
+import Loader from "../components/Loader";
 
 const TaskBuilderScreen = () => {
   const [taskName, setTaskName] = useState('')
@@ -55,9 +56,9 @@ const TaskBuilderScreen = () => {
         <Text>{isRecurring ? 'Yes' : 'No'}</Text>
       </View>
 
-      {error && <Text style={g.form.errorMessage}>{`Error: ${error}`}</Text>}
+      {error ? <Text style={g.form.errorMessage}>{`Error: ${error.message}`}</Text> : null}
       <Button title="Save" onPress={handleSubmit} disabled={isLoading} />
-      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+      {isLoading && <Loader />}
     </View>
   )
 }

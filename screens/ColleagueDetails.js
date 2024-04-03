@@ -1,11 +1,11 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, ScrollView} from 'react-native'
 
 const ColleagueDetailsScreen = ({route}) => {
   const {colleague} = route.params
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.infoContainer}>
         <Text style={styles.infoLabel}>Name:</Text>
         <Text style={styles.infoValue}>
@@ -20,7 +20,7 @@ const ColleagueDetailsScreen = ({route}) => {
         <Text style={styles.infoLabel}>Status:</Text>
         <Text style={styles.infoValue}>{colleague.status}</Text>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
