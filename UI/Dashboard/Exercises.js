@@ -1,30 +1,23 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native'
+import Exercise from './Exercise'
 
-function Exercises({
-  exercises,
-  errorDuringLoadingExercises,
-  exercisesIsLoading
-}) {
+function Exercises({exercises, errorDuringLoadingExercises, exercisesIsLoading}) {
   return (
     <View>
       {exercisesIsLoading && <Text>Loading exercises...</Text>}
       {errorDuringLoadingExercises && (
-        <Text>
-          Error loading exercises: {errorDuringLoadingExercises.message}
-        </Text>
+        <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
       )}
       {!exercisesIsLoading && (
         <FlatList
           data={exercises}
           keyExtractor={exercise => exercise.id}
           renderItem={({item}) => (
-            <Text key={item.id} style={styles.item}>
-              {item.title}
-            </Text>
+            <View key={item.id} style={styles.item}>
+              <Exercise exercise={item} />
+            </View>
           )}
-          ListEmptyComponent={
-            <Text style={styles.item}>Geen taken toegewezen</Text>
-          }
+          ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
         />
       )}
     </View>
@@ -33,7 +26,6 @@ function Exercises({
 
 const styles = StyleSheet.create({
   item: {
-    fontSize: 16,
     marginBottom: 5
   },
   subHeading: {

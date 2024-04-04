@@ -1,18 +1,23 @@
 import React, {useCallback} from 'react'
 import {Text, StyleSheet, ScrollView, RefreshControl} from 'react-native'
 import {useQuery} from 'react-query'
-import {fetchTakenTasks, fetchTasks} from '../services/Task'
+import {fetchTakenTasks, fetchTasksAssignedToSpecificClientId} from '../services/Task'
 import Tasks from '../UI/Dashboard/Tasks'
-import {fetchExercises} from '../services/Exercise'
+import {fetchExercisesAssignedToSpecificClientId} from '../services/Exercise'
 import Exercises from '../UI/Dashboard/Exercises'
+import {useAuth} from '../providers/Auth'
 
 const DashboardScreen = () => {
+  const {clientId} = useAuth()
+
   const {
     data: tasks,
     error: errorDuringLoadingTasks,
     isLoading: tasksIsLoading,
     refetch: reFetchTasks
-  } = useQuery('fetchTasks', fetchTasks)
+  } = useQuery(['fetchTasksAssignedToSpecificClientId', clientId], () =>
+    fetchTasksAssignedToSpecificClientId(clientId)
+  )
 
   const {
     data: takenTasks,
@@ -26,7 +31,9 @@ const DashboardScreen = () => {
     error: errorDuringLoadingExercises,
     isLoading: exercisesIsLoading,
     refetch: reFetchExercises
-  } = useQuery('fetchExercises', fetchExercises)
+  } = useQuery(['fetchExercisesAssignedToSpecificClientId', clientId], () =>
+    fetchExercisesAssignedToSpecificClientId(clientId)
+  )
 
   const onRefresh = useCallback(async () => {
     await Promise.all([reFetchTasks(), reFetchTakenTasks(), reFetchExercises()])
@@ -35,9 +42,7 @@ const DashboardScreen = () => {
   return (
     <ScrollView
       style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={false} onRefresh={onRefresh} />
-      }
+      refreshControl={<RefreshControl refreshing={false} onRefresh={onRefresh} />}
     >
       <Text style={styles.heading}>Dashboard</Text>
       <Text style={styles.paragraph}>Dit is jouw dashboard.</Text>

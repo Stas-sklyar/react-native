@@ -9,8 +9,13 @@ import ClientDetailsScreen from './screens/ClientDetails'
 import TaskBuilderScreen from './screens/TaskBuilder'
 import ColleagueDetailsScreen from './screens/ColleagueDetails'
 import EditColleagueScreen from './screens/EditColleague'
+import ExerciseExecution from './screens/ExerciseExecution'
 
-export const userRoutes = [{name: 'Dashboard', component: DashboardScreen}]
+export const userRoutes = [
+  {name: 'Dashboard', component: DashboardScreen},
+  {name: 'Reset Password', component: ResetPasswordScreen},
+  {name: 'Exercise Execution', component: ExerciseExecution}
+]
 
 export const adminRoutes = [
   {name: 'Clients', component: ClientsScreen},
@@ -25,7 +30,7 @@ export const adminRoutes = [
   {name: 'Edit Colleague', component: EditColleagueScreen}
 ]
 
-export const visibleInMenuLinksForUser = [{name: 'Dashboard'}]
+export const visibleInMenuLinksForUser = [{name: 'Dashboard'}, {name: 'Reset Password'}]
 
 export const visibleInMenuLinksForAdmin = [
   {name: 'Clients'},
