@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Alert
-} from 'react-native'
+import {View, Text, TextInput, Button, Alert} from 'react-native'
 import {useMutation} from 'react-query'
 import {resetPassword} from '../services/Auth'
 import g from '../assets/styles/global'
@@ -30,9 +24,7 @@ const ResetPasswordScreen = () => {
   })
 
   const handleSubmit = () => {
-    !isEmailValid
-      ? Alert.alert('Please enter a valid email address.')
-      : mutate(email)
+    !isEmailValid ? Alert.alert('Please enter a valid email address.') : mutate(email)
   }
 
   return (
@@ -45,19 +37,13 @@ const ResetPasswordScreen = () => {
         placeholder='E-mailadres'
         keyboardType='email-address'
       />
-      {isError && (
-        <Text style={g.form.errorMessage}>Er is een fout opgetreden</Text>
-      )}
+      {isError && <Text style={g.form.errorMessage}>Er is een fout opgetreden</Text>}
       {isSuccess && (
         <Text style={g.form.successMessage}>
           Wachtwoord is succesvol gereset. Please, check your email
         </Text>
       )}
-      <Button
-        title='Reset wachtwoord'
-        onPress={handleSubmit}
-        disabled={isLoading}
-      />
+      <Button title='Reset wachtwoord' onPress={handleSubmit} disabled={isLoading} />
       {isLoading && <Loader />}
     </View>
   )

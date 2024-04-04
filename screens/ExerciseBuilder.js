@@ -1,12 +1,5 @@
 import React, {useState} from 'react'
-import {
-  View,
-  TextInput,
-  Button,
-  StyleSheet,
-  ScrollView,
-  Alert
-} from 'react-native'
+import {View, TextInput, Button, StyleSheet, ScrollView, Alert} from 'react-native'
 import g from '../assets/styles/global'
 import {useMutation} from 'react-query'
 import Loader from '../components/Loader'
@@ -58,9 +51,7 @@ const ExerciseBuilderScreen = () => {
   }
 
   const isEmptyQuestionsArr = () => {
-    const notEmptyItemsInArr = questions.filter(
-      question => question.trim().length > 0
-    )
+    const notEmptyItemsInArr = questions.filter(question => question.trim().length > 0)
     return notEmptyItemsInArr.length === 0
   }
 
@@ -98,11 +89,7 @@ const ExerciseBuilderScreen = () => {
             onPress={addQuestionFields}
             disabled={exerciseCreating}
           />
-          <Button
-            title='Save'
-            onPress={saveExercise}
-            disabled={exerciseCreating}
-          />
+          <Button title='Save' onPress={saveExercise} disabled={exerciseCreating} />
           {exerciseCreating && <Loader />}
           {errorDuringExerciseCreation ? (
             <Text style={g.form.errorMessage}>

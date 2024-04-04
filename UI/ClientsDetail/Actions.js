@@ -4,10 +4,8 @@ import React, {useState} from 'react'
 import Modals from './Modals'
 
 function Actions() {
-  const [assignTaskModalIsVisible, setAssignTaskModalIsVisible] =
-    useState(false)
-  const [assignExerciseModalIsVisible, setAssignExerciseModalIsVisible] =
-    useState(false)
+  const [assignTaskModalIsVisible, setAssignTaskModalIsVisible] = useState(false)
+  const [assignExerciseModalIsVisible, setAssignExerciseModalIsVisible] = useState(false)
 
   return (
     <View style={styles.buttonsContainer}>

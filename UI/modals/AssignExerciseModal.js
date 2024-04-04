@@ -6,11 +6,7 @@ import RNPickerSelect from 'react-native-picker-select'
 import {fetchExercises} from '../../services/Exercise'
 import {assignExerciseToClient} from '../../services/Client'
 
-const AssignExercisesModal = ({
-  modalIsVisible,
-  setModalIsVisible,
-  clientId
-}) => {
+const AssignExercisesModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
   const [selectedExercise, setSelectedExercise] = useState(null)
 
   const {
@@ -55,17 +51,13 @@ const AssignExercisesModal = ({
         onSubmit={assignExercise}
         submitBtnText='Assign exercise to client'
         submittingForm={submittingForm}
-        error={
-          errorDuringAssignExercise ? errorDuringAssignExercise.message : null
-        }
+        error={errorDuringAssignExercise ? errorDuringAssignExercise.message : null}
       >
         <Text style={styles.title}>Assign exercise to client</Text>
 
         {exercisesIsLoading && <Text>Loading exercises...</Text>}
         {errorDuringLoadingExercises && (
-          <Text>
-            Error loading exercises: {errorDuringLoadingExercises.message}
-          </Text>
+          <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
         )}
         {!exercisesIsLoading && (
           <RNPickerSelect

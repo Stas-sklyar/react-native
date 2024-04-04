@@ -8,9 +8,7 @@ const ColleagueDetailsScreen = ({route}) => {
     <ScrollView style={styles.container}>
       <View style={styles.infoContainer}>
         <Text style={styles.infoLabel}>Name:</Text>
-        <Text style={styles.infoValue}>
-          {colleague.firstName + ' ' + colleague.lastName}
-        </Text>
+        <Text style={styles.infoValue}>{colleague.firstName + ' ' + colleague.lastName}</Text>
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.infoLabel}>Email:</Text>

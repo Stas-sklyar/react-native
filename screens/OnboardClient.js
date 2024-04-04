@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Alert
-} from 'react-native'
+import {View, Text, TextInput, Button, Alert} from 'react-native'
 import {useMutation} from 'react-query'
 import {createClient} from '../services/Client'
 import g from '../assets/styles/global'
@@ -14,14 +8,8 @@ import Loader from '../components/Loader'
 
 const OnboardClientScreen = () => {
   const {email, setEmail, isEmailValid} = useEmailValidation()
-  const {
-    firstName,
-    setFirstName,
-    isFirstNameValid,
-    lastName,
-    setLastName,
-    isLastNameValid
-  } = useNameValidation()
+  const {firstName, setFirstName, isFirstNameValid, lastName, setLastName, isLastNameValid} =
+    useNameValidation()
 
   const {
     mutate: createClientMutation,
@@ -84,15 +72,9 @@ const OnboardClientScreen = () => {
         placeholder='Achternaam'
       />
       {errorDuringCrateClient ? (
-        <Text
-          style={g.form.errorMessage}
-        >{`Error: ${errorDuringCrateClient.message}`}</Text>
+        <Text style={g.form.errorMessage}>{`Error: ${errorDuringCrateClient.message}`}</Text>
       ) : null}
-      <Button
-        title='Register Client'
-        onPress={handleCreateClient}
-        disabled={formSubmitting}
-      />
+      <Button title='Register Client' onPress={handleCreateClient} disabled={formSubmitting} />
       {formSubmitting && <Loader />}
     </View>
   )

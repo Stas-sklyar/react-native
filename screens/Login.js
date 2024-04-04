@@ -1,12 +1,5 @@
 import React, {useState} from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Alert
-} from 'react-native'
+import {View, Text, TextInput, Button, TouchableOpacity, Alert} from 'react-native'
 import {useAuth} from '../providers/Auth'
 import g from '../assets/styles/global'
 import useEmailValidation from '../hooks/useEmailValidation'

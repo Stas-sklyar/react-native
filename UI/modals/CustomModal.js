@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import {Button, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import g from '../../assets/styles/global'
 import Loader from '../../components/Loader'
 
@@ -20,12 +13,7 @@ const CustomModal = ({
   error
 }) => {
   return (
-    <Modal
-      animationType='fade'
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose}
-    >
+    <Modal animationType='fade' transparent={true} visible={isVisible} onRequestClose={onClose}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
@@ -43,11 +31,7 @@ const CustomModal = ({
 
           <View style={styles.buttonsContainer}>
             <Button title='Cancel' onPress={onClose} />
-            <Button
-              title={submitBtnText}
-              onPress={onSubmit}
-              disabled={submittingForm}
-            />
+            <Button title={submitBtnText} onPress={onSubmit} disabled={submittingForm} />
           </View>
         </View>
       </View>

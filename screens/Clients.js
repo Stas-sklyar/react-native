@@ -32,10 +32,7 @@ const ClientsScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Button
-        title='Onboard client'
-        onPress={() => navigation.navigate('Onboard Client')}
-      />
+      <Button title='Onboard client' onPress={() => navigation.navigate('Onboard Client')} />
 
       {isLoading && <Text>Loading clients...</Text>}
 
@@ -45,18 +42,11 @@ const ClientsScreen = ({navigation}) => {
         <FlatList
           data={clients}
           keyExtractor={client => client.id}
-          refreshControl={
-            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
-          }
+          refreshControl={<RefreshControl refreshing={isLoading} onRefresh={onRefresh} />}
           renderItem={({item}) => (
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => handleClientPress(item)}
-            >
+            <TouchableOpacity style={styles.item} onPress={() => handleClientPress(item)}>
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.details}>
-                Begeleiders: {getSupervisorsList(item)}
-              </Text>
+              <Text style={styles.details}>Begeleiders: {getSupervisorsList(item)}</Text>
               <Text style={styles.details}>Status: {item.status}</Text>
             </TouchableOpacity>
           )}

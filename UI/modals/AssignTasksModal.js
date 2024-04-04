@@ -1,10 +1,5 @@
 import React, {useState} from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Alert,
-} from 'react-native'
+import {Text, View, StyleSheet, Alert} from 'react-native'
 import CustomModal from './CustomModal'
 import {useMutation, useQuery} from 'react-query'
 import {fetchTasks} from '../../services/Task'

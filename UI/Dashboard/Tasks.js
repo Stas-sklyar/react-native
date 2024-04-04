@@ -25,9 +25,7 @@ function Tasks({
               <Task task={item} taken={false} />
             </View>
           )}
-          ListEmptyComponent={
-            <Text style={styles.item}>Geen taken toegewezen</Text>
-          }
+          ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
         />
       )}
 
@@ -45,9 +43,7 @@ function Tasks({
               <Task task={item} taken={true} />
             </View>
           )}
-          ListEmptyComponent={
-            <Text style={styles.item}>Geen taken toegewezen</Text>
-          }
+          ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
         />
       )}
     </View>

@@ -1,11 +1,6 @@
 import {Button, FlatList, StyleSheet, Text, View} from 'react-native'
 
-function ColleaguesList({
-  colleagues,
-  errorFetchingColleagues,
-  colleaguesIsLoading,
-  navigation
-}) {
+function ColleaguesList({colleagues, errorFetchingColleagues, colleaguesIsLoading, navigation}) {
   const handleView = colleague => {
     navigation.navigate('Colleagues Details', {colleague})
   }
@@ -25,9 +20,7 @@ function ColleaguesList({
   return (
     <View>
       {colleaguesIsLoading && <Text>Loading colleagues...</Text>}
-      {errorFetchingColleagues && (
-        <Text>Error: {errorFetchingColleagues.message}</Text>
-      )}
+      {errorFetchingColleagues && <Text>Error: {errorFetchingColleagues.message}</Text>}
       {!colleaguesIsLoading && (
         <FlatList
           style={styles.colleagueList}
@@ -42,11 +35,7 @@ function ColleaguesList({
                 <Button title='View' onPress={() => handleView(item)} />
                 <Button title='Edit' onPress={() => handleEdit(item)} />
                 <Button title='Delete' onPress={() => handleDelete(item.id)} />
-                <Button
-                  title='Block'
-                  onPress={() => handleBlock(item.id)}
-                  color='red'
-                />
+                <Button title='Block' onPress={() => handleBlock(item.id)} color='red' />
               </View>
             </View>
           )}

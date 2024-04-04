@@ -19,12 +19,7 @@ const MyTeamScreen = ({navigation}) => {
 
   return (
     <ScrollView
-      refreshControl={
-        <RefreshControl
-          refreshing={colleaguesIsLoading}
-          onRefresh={onRefresh}
-        />
-      }
+      refreshControl={<RefreshControl refreshing={colleaguesIsLoading} onRefresh={onRefresh} />}
     >
       <CreateColleagueForm />
       <ColleaguesList

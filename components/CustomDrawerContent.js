@@ -5,9 +5,7 @@ function CustomDrawerContentView(props) {
   const {logout, role} = useAuth()
 
   const getVisibleLinks = () => {
-    return role === 'user'
-      ? visibleInMenuLinksForUser
-      : visibleInMenuLinksForAdmin
+    return role === 'user' ? visibleInMenuLinksForUser : visibleInMenuLinksForAdmin
   }
 
   const handleLogout = () => {

@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {
-  View,
-  TextInput,
-  Button,
-  Alert,
-  Text,
-  Switch
-} from 'react-native'
+import {View, TextInput, Button, Alert, Text, Switch} from 'react-native'
 import g from '../assets/styles/global'
 import useNameValidation from '../hooks/useNameValidation'
 import {useMutation} from 'react-query'
@@ -17,14 +10,8 @@ const EditColleagueScreen = ({route}) => {
   const {colleague} = route.params
 
   const [email, setEmail] = useState('')
-  const {
-    firstName,
-    setFirstName,
-    isFirstNameValid,
-    lastName,
-    setLastName,
-    isLastNameValid
-  } = useNameValidation()
+  const {firstName, setFirstName, isFirstNameValid, lastName, setLastName, isLastNameValid} =
+    useNameValidation()
   const [status, setStatus] = useState(false)
 
   const {
@@ -107,9 +94,7 @@ const EditColleagueScreen = ({route}) => {
       </View>
 
       {errorDuringEditColleague ? (
-        <Text
-          style={g.form.errorMessage}
-        >{`Error: ${errorDuringEditColleague.message}`}</Text>
+        <Text style={g.form.errorMessage}>{`Error: ${errorDuringEditColleague.message}`}</Text>
       ) : null}
       <Button
         title='Change Colleague Data'

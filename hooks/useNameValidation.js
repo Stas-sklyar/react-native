@@ -17,12 +17,10 @@ const useNameValidation = () => {
 
   return {
     firstName,
-    setFirstName: newName =>
-      handleNameChange(newName, setFirstName, setIsFirstNameValid),
+    setFirstName: newName => handleNameChange(newName, setFirstName, setIsFirstNameValid),
     isFirstNameValid,
     lastName,
-    setLastName: newName =>
-      handleNameChange(newName, setLastName, setIsLastNameValid),
+    setLastName: newName => handleNameChange(newName, setLastName, setIsLastNameValid),
     isLastNameValid
   }
 }

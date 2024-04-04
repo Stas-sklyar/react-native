@@ -1,11 +1,5 @@
 import g from '../../assets/styles/global'
-import {
-  Alert,
-  Button,
-  Text,
-  TextInput,
-  View
-} from 'react-native'
+import {Alert, Button, Text, TextInput, View} from 'react-native'
 import useEmailValidation from '../../hooks/useEmailValidation'
 import {useMutation} from 'react-query'
 import {createColleague} from '../../services/Colleague'
@@ -14,14 +8,8 @@ import Loader from '../../components/Loader'
 
 function CreateColleagueForm() {
   const {email, setEmail, isEmailValid} = useEmailValidation()
-  const {
-    firstName,
-    setFirstName,
-    isFirstNameValid,
-    lastName,
-    setLastName,
-    isLastNameValid
-  } = useNameValidation()
+  const {firstName, setFirstName, isFirstNameValid, lastName, setLastName, isLastNameValid} =
+    useNameValidation()
 
   const {
     mutate: createColleagueMutate,
@@ -84,9 +72,7 @@ function CreateColleagueForm() {
       />
 
       {isErrorDuringCreateColleague && (
-        <Text
-          style={g.form.errorMessage}
-        >{`Error: ${errorDuringCreateColleague.message}`}</Text>
+        <Text style={g.form.errorMessage}>{`Error: ${errorDuringCreateColleague.message}`}</Text>
       )}
       <Button
         title='Register Colleague'

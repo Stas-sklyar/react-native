@@ -1,13 +1,5 @@
 import React, {useCallback} from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  FlatList,
-  RefreshControl
-} from 'react-native'
+import {View, Text, TextInput, Button, StyleSheet, FlatList, RefreshControl} from 'react-native'
 import {useQuery} from 'react-query'
 import {fetchQuotes} from '../services/Quote'
 import g from '../assets/styles/global'
@@ -53,9 +45,7 @@ const QuotesPlannerScreen = () => {
         data={quotes}
         renderItem={renderQuoteItem}
         keyExtractor={(_, index) => String(index)}
-        refreshControl={
-          <RefreshControl refreshing={quotesIsLoading} onRefresh={onRefresh} />
-        }
+        refreshControl={<RefreshControl refreshing={quotesIsLoading} onRefresh={onRefresh} />}
       />
       <Button title='Save' onPress={saveQuotes} />
     </View>
