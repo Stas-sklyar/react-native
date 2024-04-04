@@ -9,20 +9,15 @@ import {
 } from 'react-native'
 import g from '../assets/styles/global'
 import {useMutation} from 'react-query'
-import {createTask} from '../services/Task'
 import Loader from '../components/Loader'
-
-const emptyAction = {
-  title: '',
-  question: ''
-}
+import {createExercise} from '../services/Exercise'
 
 const ExerciseBuilderScreen = () => {
   const {
     mutate: createExerciseMutation,
     isLoading: exerciseCreating,
     error: errorDuringExerciseCreation
-  } = useMutation(createTask, {
+  } = useMutation(createExercise, {
     onSuccess: () => {
       Alert.alert('Success', 'Exercise created successfully!')
       clearForm()
@@ -32,53 +27,75 @@ const ExerciseBuilderScreen = () => {
     }
   })
 
-  const [actions, setActions] = useState([{...emptyAction}])
+  const [questions, setQuestions] = useState([''])
+  const [exerciseTitle, setExerciseTitle] = useState('')
 
-  const addActionFields = () => {
-    setActions([...actions, {...emptyAction}])
+  const addQuestionFields = () => {
+    setQuestions([...questions, ''])
   }
 
   const saveExercise = () => {
-    createExerciseMutation({exercise: actions})
+    formIsValid() ? createExerciseMutation({exerciseTitle, questions}) : null
+  }
+
+  const formIsValid = () => {
+    if (exerciseTitle.trim().length === 0) {
+      Alert.alert('Error', 'Please add a title to the exercise')
+      return false
+    }
+
+    if (isEmptyQuestionsArr()) {
+      Alert.alert('Error', 'Please add at least one question')
+      return false
+    }
+
+    return true
   }
 
   const clearForm = () => {
-    setActions([{...emptyAction}])
+    setQuestions([''])
+    setExerciseTitle('')
   }
 
-  const handleActionChange = (index, key, value) => {
-    console.log(index, key, value)
-    const newActions = [...actions]
-    newActions[index][key] = value
-    setActions(newActions)
+  const isEmptyQuestionsArr = () => {
+    const notEmptyItemsInArr = questions.filter(
+      question => question.trim().length > 0
+    )
+    return notEmptyItemsInArr.length === 0
+  }
+
+  const handleActionChange = (index, value) => {
+    const newQuestions = [...questions]
+    newQuestions[index] = value
+    setQuestions(newQuestions)
   }
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.page}>
-        {actions.map((action, index) => (
-          <View key={index} style={g.form.container}>
-            <TextInput
-              style={g.form.input}
-              value={action.title}
-              placeholder={`Title ${index + 1}`}
-              onChangeText={value => handleActionChange(index, 'title', value)}
-            />
+        <View style={g.form.container}>
+          <TextInput
+            style={g.form.input}
+            value={exerciseTitle}
+            placeholder={`Title of Exercise`}
+            onChangeText={value => setExerciseTitle(value)}
+          />
 
+          {questions.map((question, index) => (
             <TextInput
+              key={index}
               style={g.form.input}
-              value={action.question}
+              value={question}
               placeholder={`Question ${index + 1}`}
-              onChangeText={value =>
-                handleActionChange(index, 'question', value)
-              }
+              onChangeText={value => handleActionChange(index, value)}
             />
-          </View>
-        ))}
+          ))}
+        </View>
+
         <View style={styles.buttonContainer}>
           <Button
             title='Add Answer Field'
-            onPress={addActionFields}
+            onPress={addQuestionFields}
             disabled={exerciseCreating}
           />
           <Button
@@ -87,11 +104,11 @@ const ExerciseBuilderScreen = () => {
             disabled={exerciseCreating}
           />
           {exerciseCreating && <Loader />}
-          {errorDuringExerciseCreation && (
-            <Text
-              style={g.form.errorMessage}
-            >{`Error: ${errorDuringExerciseCreation.message}`}</Text>
-          )}
+          {errorDuringExerciseCreation ? (
+            <Text style={g.form.errorMessage}>
+              {`Error: ${errorDuringExerciseCreation.message}`}
+            </Text>
+          ) : null}
         </View>
       </View>
     </ScrollView>

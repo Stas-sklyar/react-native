@@ -4,15 +4,18 @@ export const fetchExercises = async () => {
       resolve([
         {
           id: 1,
-          title: 'Exercise 1'
+          title: 'Exercise 1',
+          questions: ['Question 1', 'Question 2', 'Question 3']
         },
         {
           id: 2,
-          title: 'Exercise 2'
+          title: 'Exercise 2',
+          questions: []
         },
         {
           id: 3,
-          title: 'Exercise 3'
+          title: 'Exercise 3',
+          questions: ['Question 2']
         }
       ])
     }, 1000)
