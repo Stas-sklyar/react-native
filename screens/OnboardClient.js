@@ -46,7 +46,7 @@ const OnboardClientScreen = () => {
       return
     }
 
-    createClientMutation({email, firstName, lastName})
+    createClientMutation({email, name: `${firstName} ${lastName}`})
   }
 
   return (

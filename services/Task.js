@@ -1,22 +1,14 @@
+import axios from 'axios'
+import {apiBaseUrl} from '../config'
+
 export const fetchTasks = async () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 1,
-          title: 'Task 1'
-        },
-        {
-          id: 2,
-          title: 'Task 2'
-        },
-        {
-          id: 3,
-          title: 'Task 3'
-        }
-      ])
-    }, 1500)
-  })
+  try {
+    const response = await axios.get(`${apiBaseUrl}/tasks`)
+    return response.data
+  } catch (error) {
+    console.error('Failed to fetch exercises:', error)
+    throw error
+  }
 }
 
 export const fetchTakenTasks = async () => {
@@ -39,32 +31,21 @@ export const fetchTakenTasks = async () => {
 }
 
 export const createTask = async task => {
-  console.log(task)
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve()
-    }, 1500)
-  })
+  try {
+    const response = await axios.post(`${apiBaseUrl}/tasks`, task)
+    return response.data
+  } catch (error) {
+    console.error('Failed to create exercise:', error)
+    throw error
+  }
 }
 
 export const fetchTasksAssignedToSpecificClientId = async clientId => {
-  console.log(clientId)
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 1,
-          title: 'Assigned Task 1'
-        },
-        {
-          id: 2,
-          title: 'Assigned Task 2'
-        },
-        {
-          id: 3,
-          title: 'Assigned Task 3'
-        }
-      ])
-    }, 1500)
-  })
+  try {
+    const response = await axios.get(`${apiBaseUrl}/clients/${clientId}/tasks`)
+    return response.data
+  } catch (error) {
+    console.error(`Failed to fetch exercises assigned to client ${clientId}:`, error)
+    throw error
+  }
 }

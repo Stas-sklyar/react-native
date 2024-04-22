@@ -16,25 +16,26 @@ function Tasks({
       {errorDuringLoadingTasks && (
         <Text>Error loading tasks: {errorDuringLoadingTasks.message}</Text>
       )}
-      {!tasksIsLoading && (
-        <FlatList
-          data={tasks}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <View key={item.id} style={styles.item}>
-              <Task task={item} taken={false} />
-            </View>
-          )}
-          ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
-        />
-      )}
+      {!tasksIsLoading &&
+        !errorDuringLoadingTasks(
+          <FlatList
+            data={tasks}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => (
+              <View key={item.id} style={styles.item}>
+                <Task task={item} taken={false} />
+              </View>
+            )}
+            ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
+          />
+        )}
 
       <Text style={styles.subHeading}>Taken</Text>
       {takenTasksIsLoading && <Text>Loading tasks...</Text>}
       {errorDuringLoadingTakenTasks && (
         <Text>Error loading tasks: {errorDuringLoadingTakenTasks.message}</Text>
       )}
-      {!takenTasksIsLoading && (
+      {!takenTasksIsLoading && !errorDuringLoadingTakenTasks && (
         <FlatList
           data={takenTasks}
           keyExtractor={item => item.id}

@@ -64,7 +64,7 @@ const AssignExercisesModal = ({modalIsVisible, setModalIsVisible, clientId}) => 
             placeholder={selectPlaceholder}
             items={exercises.map(exercise => ({
               label: exercise.title,
-              value: exercise.id
+              value: exercise['_id']
             }))}
             onValueChange={value => setSelectedExercise(value)}
             value={selectedExercise}

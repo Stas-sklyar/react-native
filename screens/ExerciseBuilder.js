@@ -28,7 +28,7 @@ const ExerciseBuilderScreen = () => {
   }
 
   const saveExercise = () => {
-    formIsValid() ? createExerciseMutation({exerciseTitle, questions}) : null
+    formIsValid() ? createExerciseMutation({title: exerciseTitle, questions}) : null
   }
 
   const formIsValid = () => {

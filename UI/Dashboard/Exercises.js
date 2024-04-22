@@ -8,18 +8,19 @@ function Exercises({exercises, errorDuringLoadingExercises, exercisesIsLoading})
       {errorDuringLoadingExercises && (
         <Text>Error loading exercises: {errorDuringLoadingExercises.message}</Text>
       )}
-      {!exercisesIsLoading && (
-        <FlatList
-          data={exercises}
-          keyExtractor={exercise => exercise.id}
-          renderItem={({item}) => (
-            <View key={item.id} style={styles.item}>
-              <Exercise exercise={item} />
-            </View>
-          )}
-          ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
-        />
-      )}
+      {!exercisesIsLoading &&
+        !errorDuringLoadingExercises(
+          <FlatList
+            data={exercises}
+            keyExtractor={exercise => exercise.id}
+            renderItem={({item}) => (
+              <View key={item.id} style={styles.item}>
+                <Exercise exercise={item} />
+              </View>
+            )}
+            ListEmptyComponent={<Text style={styles.item}>Geen taken toegewezen</Text>}
+          />
+        )}
     </View>
   )
 }

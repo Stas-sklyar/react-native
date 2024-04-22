@@ -62,7 +62,7 @@ const AssignTasksModal = ({modalIsVisible, setModalIsVisible, clientId}) => {
         {!tasksIsLoading && (
           <RNPickerSelect
             placeholder={selectPlaceholder}
-            items={tasks.map(task => ({label: task.title, value: task.id}))}
+            items={tasks.map(task => ({label: task.title, value: task['_id']}))}
             onValueChange={value => setSelectedTask(value)}
             value={selectedTask}
           />

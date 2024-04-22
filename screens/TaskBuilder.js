@@ -27,7 +27,7 @@ const TaskBuilderScreen = () => {
     if (!taskName.trim()) {
       Alert.alert('Validation', 'Title is required!')
     } else {
-      createTaskMutation({taskName, isRecurring})
+      createTaskMutation({title: taskName, isRecurring})
     }
   }
 

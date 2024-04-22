@@ -5,8 +5,8 @@ export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [role, setRole] = useState('user')
-  const [clientId, setClientId] = useState('1')
+  const [role, setRole] = useState('admin')
+  const [clientId, setClientId] = useState('661e88a51a997c1ecdb39b8b')
 
   const login = () => setIsLoggedIn(true)
   const logout = () => setIsLoggedIn(false)

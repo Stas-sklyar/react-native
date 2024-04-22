@@ -17,7 +17,7 @@ function Modals({
       {assignExerciseModalIsVisible && (
         <View>
           <AssignExercisesModal
-            clientId={client.id}
+            clientId={client['_id']}
             modalIsVisible={assignExerciseModalIsVisible}
             setModalIsVisible={setAssignExerciseModalIsVisible}
           />
@@ -26,7 +26,7 @@ function Modals({
       {assignTaskModalIsVisible && (
         <View>
           <AssignTasksModal
-            clientId={client.id}
+            clientId={client['_id']}
             modalIsVisible={assignTaskModalIsVisible}
             setModalIsVisible={setAssignTaskModalIsVisible}
           />

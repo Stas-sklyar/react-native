@@ -11,6 +11,8 @@ import ColleagueDetailsScreen from './screens/ColleagueDetails'
 import EditColleagueScreen from './screens/EditColleague'
 import ExerciseExecution from './screens/ExerciseExecution'
 
+export const apiBaseUrl = 'http://localhost:3001'
+
 export const userRoutes = [
   {name: 'Dashboard', component: DashboardScreen},
   {name: 'Reset Password', component: ResetPasswordScreen},

@@ -1,0 +1,28 @@
+{
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the task."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of task creation."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the last update to the task."
+          }
+        }
+      }
+    }
+  }
+}
